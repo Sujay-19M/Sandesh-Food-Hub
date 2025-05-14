@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Leaf } from 'lucide-react';
+import { Utensils } from 'lucide-react'; // Changed from Leaf to Utensils
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -16,7 +16,7 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <Leaf className="h-7 w-7" />
+      <Utensils className="h-7 w-7" /> {/* Changed from Leaf to Utensils */}
       <span>Sandesh Food Hub</span>
     </Link>
   );
