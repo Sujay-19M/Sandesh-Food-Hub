@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import { Leaf } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -11,19 +11,13 @@ export function Logo({ className }: LogoProps) {
     <Link
       href="/"
       className={cn(
-        'flex items-center hover:opacity-80 transition-opacity',
+        'flex items-center space-x-2 text-xl font-semibold text-primary hover:opacity-80 transition-opacity',
         className
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <Image
-        src="/logo.png"
-        alt="Sandesh Food Hub Logo"
-        width={48}
-        height={48}
-        className="object-contain"
-        priority
-      />
+      <Leaf className="h-7 w-7" />
+      <span>Sandesh Food Hub</span>
     </Link>
   );
 }
