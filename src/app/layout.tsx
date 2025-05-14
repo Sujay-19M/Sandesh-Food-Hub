@@ -39,9 +39,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  icons: {
-    icon: '/hand-platter-logo.svg', // Sets the favicon to your SVG
-  }
+  // Removed specific icon link to allow default favicon.ico
 };
 
 export default function RootLayout({
