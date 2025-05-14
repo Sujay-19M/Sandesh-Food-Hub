@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Leaf } from 'lucide-react'; // Changed back to Leaf
+import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon'; // Changed from Leaf
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -18,7 +18,7 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <Leaf className="h-7 w-7 text-primary" /> {/* Changed back to Leaf */}
+      <CustomLogoIcon className="h-7 w-7 text-primary" /> {/* Changed from Leaf */}
       <span>Sandesh Food Hub</span>
     </Link>
   );
