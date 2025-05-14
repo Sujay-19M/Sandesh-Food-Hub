@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { UtensilsCrossed } from 'lucide-react'; // Changed from Dish to UtensilsCrossed
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -19,7 +19,13 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <UtensilsCrossed className="h-7 w-7" /> {/* Changed from Dish to UtensilsCrossed */}
+      <Image
+        src="/hand-platter-logo.svg"
+        alt="Sandesh Food Hub Logo"
+        width={28} // Adjust width as needed
+        height={28} // Adjust height as needed
+        className="h-7 w-7" // You can use Tailwind for sizing or rely on width/height
+      />
       <span>Sandesh Food Hub</span>
     </Link>
   );

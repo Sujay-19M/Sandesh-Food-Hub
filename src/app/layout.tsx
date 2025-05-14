@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: '/logo.png', // Sets the favicon
+    icon: '/hand-platter-logo.svg', // Sets the favicon to your SVG
   }
 };
 
