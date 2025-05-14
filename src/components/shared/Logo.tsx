@@ -1,7 +1,8 @@
+
 'use client';
 
 import Link from 'next/link';
-import { ChefHat } from 'lucide-react'; // Changed from Cloche to ChefHat
+import { UtensilsCrossed } from 'lucide-react'; // Changed from Dish to UtensilsCrossed
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -18,7 +19,7 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <ChefHat className="h-7 w-7" /> {/* Changed from Cloche to ChefHat */}
+      <UtensilsCrossed className="h-7 w-7" /> {/* Changed from Dish to UtensilsCrossed */}
       <span>Sandesh Food Hub</span>
     </Link>
   );
