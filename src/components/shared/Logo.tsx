@@ -1,7 +1,8 @@
+
 'use client';
 
 import Link from 'next/link';
-import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon'; // Changed from Leaf
+import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon'; // Using CustomLogoIcon
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -18,7 +19,7 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <CustomLogoIcon className="h-7 w-7 text-primary" /> {/* Changed from Leaf */}
+      <CustomLogoIcon className="h-7 w-7 text-accent" /> {/* Changed text-primary to text-accent for orange color */}
       <span>Sandesh Food Hub</span>
     </Link>
   );
