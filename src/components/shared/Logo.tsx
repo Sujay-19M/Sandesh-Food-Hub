@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Leaf } from 'lucide-react';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
@@ -7,9 +8,22 @@ interface LogoProps {
 
 export function Logo({ className }: LogoProps) {
   return (
-    <Link href="/" className={`flex items-center gap-2 text-2xl font-bold text-primary hover:text-primary/80 transition-colors ${className}`}>
-      <Leaf className="h-8 w-8" />
-      <span>Sandesh Food Hub</span>
+    <Link
+      href="/"
+      className={cn(
+        'flex items-center hover:opacity-80 transition-opacity',
+        className
+      )}
+      aria-label="Sandesh Food Hub Home"
+    >
+      <Image
+        src="/logo.png"
+        alt="Sandesh Food Hub Logo"
+        width={48}
+        height={48}
+        className="object-contain"
+        priority
+      />
     </Link>
   );
 }
