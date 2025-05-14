@@ -1,8 +1,7 @@
-
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { HandPlatterIcon } from './HandPlatterIcon'; // Import the new icon component
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -19,13 +18,8 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <Image
-        src="/hand-platter-logo.svg"
-        alt="Sandesh Food Hub Logo"
-        width={28} // Adjust width as needed
-        height={28} // Adjust height as needed
-        className="h-7 w-7" // You can use Tailwind for sizing or rely on width/height
-      />
+      {/* Use the new HandPlatterIcon component */}
+      <HandPlatterIcon className="h-7 w-7 text-primary" /> 
       <span>Sandesh Food Hub</span>
     </Link>
   );
