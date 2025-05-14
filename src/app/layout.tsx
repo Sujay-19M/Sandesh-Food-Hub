@@ -17,24 +17,24 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Veggie Delights - Pure Vegetarian Restaurant',
-    template: '%s | Veggie Delights',
+    default: 'Sandesh Food Hub - Pure Vegetarian Restaurant',
+    template: '%s | Sandesh Food Hub',
   },
-  description: 'Enjoy delicious and fresh pure vegetarian dishes at Veggie Delights. Explore our diverse menu featuring appetizers, main courses, desserts, and beverages. Visit us for an unforgettable dining experience.',
-  keywords: ['vegetarian restaurant', 'pure veg', 'indian food', 'healthy food', 'veggie delights menu'],
+  description: 'Enjoy delicious and fresh pure vegetarian dishes at Sandesh Food Hub. Explore our diverse menu featuring appetizers, main courses, desserts, and beverages. Visit us for an unforgettable dining experience.',
+  keywords: ['vegetarian restaurant', 'pure veg', 'indian food', 'healthy food', 'sandesh food hub menu'],
   openGraph: {
-    title: 'Veggie Delights - Pure Vegetarian Restaurant',
+    title: 'Sandesh Food Hub - Pure Vegetarian Restaurant',
     description: 'Delicious and fresh pure vegetarian dishes.',
     type: 'website',
     locale: 'en_IN',
-    url: 'https://veggiedelights.example.com', // Replace with actual URL
-    siteName: 'Veggie Delights',
+    url: 'https://sandeshfoodhub.example.com', // Replace with actual URL
+    siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: 'https://placehold.co/1200x630.png?text=Veggie+Delights+Restaurant', // Replace with actual OG image
+        url: 'https://placehold.co/1200x630.png?text=Sandesh+Food+Hub+Restaurant', // Replace with actual OG image
         width: 1200,
         height: 630,
-        alt: 'Veggie Delights Restaurant',
+        alt: 'Sandesh Food Hub Restaurant',
       },
     ],
   },

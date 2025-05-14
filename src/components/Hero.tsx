@@ -9,7 +9,7 @@ export function Hero() {
     <div className="relative bg-secondary/30 py-20 md:py-32 overflow-hidden">
       <Container className="relative z-10 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl md:text-6xl drop-shadow-sm">
-          Welcome to <span className="text-accent">Veggie Delights</span>
+          Welcome to <span className="text-accent">Sandesh Food Hub</span>
         </h1>
         <p className="mt-6 max-w-2xl mx-auto text-lg text-foreground/80 sm:text-xl md:text-2xl">
           Savor the rich flavors of authentic, pure vegetarian cuisine crafted with the freshest ingredients.
@@ -31,7 +31,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Delicious vegetarian food platter"
+          alt="Delicious vegetarian food platter at Sandesh Food Hub"
           data-ai-hint="vegetarian food platter"
           layout="fill"
           objectFit="cover"

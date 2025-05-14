@@ -7,8 +7,8 @@ import { Container } from '@/components/layout/Container';
 import { Leaf, UtensilsCrossed, Smile, Info } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Home | Veggie Delights - Pure Vegetarian Restaurant',
-  description: 'Welcome to Veggie Delights! Discover a world of flavorful pure vegetarian dishes made with love and the freshest ingredients. Your go-to destination for healthy and delicious meals.',
+  title: 'Home | Sandesh Food Hub - Pure Vegetarian Restaurant',
+  description: 'Welcome to Sandesh Food Hub! Discover a world of flavorful pure vegetarian dishes made with love and the freshest ingredients. Your go-to destination for healthy and delicious meals.',
 };
 
 const popularDishes = [
@@ -65,7 +65,7 @@ export default function HomePage() {
               Our Culinary Philosophy
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
-              At Veggie Delights, we believe in the power of fresh, wholesome vegetarian food to nourish the body and soul.
+              At Sandesh Food Hub, we believe in the power of fresh, wholesome vegetarian food to nourish the body and soul.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">

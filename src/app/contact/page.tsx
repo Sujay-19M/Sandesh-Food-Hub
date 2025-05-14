@@ -6,8 +6,8 @@ import { Phone, MessageCircle, MapPin, Mail } from 'lucide-react';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Veggie Delights',
-  description: 'Get in touch with Veggie Delights. Find our address, phone number, and send us a message. We look forward to hearing from you!',
+  title: 'Contact Us | Sandesh Food Hub',
+  description: 'Get in touch with Sandesh Food Hub. Find our address, phone number, and send us a message. We look forward to hearing from you!',
 };
 
 const restaurantDetails = {
@@ -15,7 +15,7 @@ const restaurantDetails = {
   addressLine2: 'Herbal City, Flavortown 456001',
   phone: '+911234567890', // Replace with actual phone
   whatsapp: '911234567890', // Replace with actual WhatsApp number (no +)
-  email: 'info@veggiedelights.example.com', // Replace with actual email
+  email: 'info@sandeshfoodhub.example.com', // Replace with actual email
 };
 
 export default function ContactPage() {
