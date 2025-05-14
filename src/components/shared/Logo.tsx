@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CookingPot } from 'lucide-react'; // Changed from Utensils to CookingPot
+import { Star } from 'lucide-react'; // Changed from CookingPot to Star
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -18,7 +18,7 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <CookingPot className="h-7 w-7" /> {/* Changed from Utensils to CookingPot */}
+      <Star className="h-7 w-7" /> {/* Changed from CookingPot to Star */}
       <span>Sandesh Food Hub</span>
     </Link>
   );
