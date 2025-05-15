@@ -19,7 +19,7 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <CustomLogoIcon className="h-7 w-7 text-accent" /> {/* text-accent for orange color */}
+      <CustomLogoIcon className="h-24 w-24 text-accent" /> {/* Changed size from h-7 w-7 to h-24 w-24 */}
       <span>Sandesh Food Hub</span>
     </Link>
   );
