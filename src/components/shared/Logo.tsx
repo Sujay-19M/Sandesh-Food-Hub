@@ -2,7 +2,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon'; // Using CustomLogoIcon
+import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -19,8 +19,8 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <CustomLogoIcon className="h-24 w-24 text-accent" /> {/* Changed size from h-7 w-7 to h-24 w-24 */}
-      <span>Sandesh Food Hub</span>
+      <CustomLogoIcon className="h-24 w-24 text-accent" />
+      {/* The text "Sandesh Food Hub" has been removed as per user request, assuming the SVG logo includes it. */}
     </Link>
   );
 }
