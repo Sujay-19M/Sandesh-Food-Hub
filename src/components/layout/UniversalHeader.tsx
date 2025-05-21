@@ -4,10 +4,11 @@
 import type { SVGProps } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react'; // Sun, Moon can be removed if not used elsewhere after this fix
+import { Menu, X, ChevronDown, MessageCircle, PhoneCall } from 'lucide-react';
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface NavItem {
   label: string;
@@ -33,6 +34,9 @@ const navItems: NavItem[] = [
 ];
 
 const WHATSAPP_NUMBER = '911234567890'; // Replace with your actual WhatsApp number
+const RESTAURANT_PHONE_NUMBER = '+919332353778';
+const RESTAURANT_PHONE_TEL_URI = `tel:${RESTAURANT_PHONE_NUMBER.replace(/\s+/g, '')}`;
+
 
 export function UniversalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,8 +55,7 @@ export function UniversalHeader() {
       ) {
         if (
           isMobileMenuOpen &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]') &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle theme"]') // Ensure theme toggle doesn't close it
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]')
         ) {
           setIsMobileMenuOpen(false);
         }
@@ -74,23 +77,21 @@ export function UniversalHeader() {
   };
 
   if (!isMounted) {
-    // Render a skeleton or basic version of the header until mounted
-    // This helps avoid hydration mismatches related to theme preference
     return (
         <header className="sticky top-0 z-50 bg-background text-foreground shadow-md">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 md:h-20 items-center justify-between">
-                    <div className="md:flex-shrink-0"> {/* Placeholder for logo area */}
+                    <div className="md:flex-shrink-0">
                         <CustomLogoIcon className="h-24 w-24 text-accent" />
                     </div>
-                    <div className="hidden md:flex mx-auto items-center space-x-2"> {/* Placeholder for nav */}
+                    <div className="hidden md:flex mx-auto items-center space-x-2">
                          <span className="p-2">Home</span>
                          <span className="p-2">Menu</span>
                          <span className="p-2">Contact</span>
                     </div>
-                    <div className="flex items-center"> {/* Placeholder for right side actions */}
-                        <div className="w-9 h-9 md:w-10 md:h-10 bg-muted rounded-full animate-pulse"></div> {/* Skeleton for theme toggle */}
-                        <div className="md:hidden w-9 h-9 ml-2 bg-muted rounded-full animate-pulse"></div> {/* Skeleton for hamburger */}
+                    <div className="flex items-center">
+                        <div className="w-9 h-9 md:w-10 md:h-10 bg-muted rounded-full animate-pulse"></div>
+                        <div className="md:hidden w-9 h-9 ml-2 bg-muted rounded-full animate-pulse"></div>
                     </div>
                 </div>
             </div>
@@ -149,12 +150,29 @@ export function UniversalHeader() {
                 )
               )}
             </nav>
-            {/* Removed Theme Toggle Button for Desktop */}
+            {/* Right side items for desktop */}
+            <div className="flex items-center space-x-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                      <PhoneCall className="mr-2 h-4 w-4" />
+                      Call Now
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent side="bottom" align="end" className="w-auto p-3 shadow-lg rounded-md bg-popover text-popover-foreground">
+                    <div className="flex flex-col items-start gap-1">
+                      <p className="text-xs text-muted-foreground">Contact us:</p>
+                      <a href={RESTAURANT_PHONE_TEL_URI} className="text-sm font-semibold text-primary hover:underline">
+                        {RESTAURANT_PHONE_NUMBER}
+                      </a>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+            </div>
           </div>
 
           {/* Mobile Header */}
           <div className="md:hidden flex h-16 items-center justify-between">
-             {/* Removed Theme Toggle Button for Mobile Left */}
             <div className="w-9 md:w-10"></div> {/* Placeholder for spacing if theme toggle was on left */}
             <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
                <CustomLogoIcon className="h-20 w-20 text-accent" />
@@ -183,7 +201,7 @@ export function UniversalHeader() {
               item.dropdown ? (
                 <details key={item.label} className="group">
                   <summary className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-muted hover:text-primary cursor-pointer list-none transition-colors">
-                    <Link href={item.href || '#'} onClick={handleLinkClick} className="flex-grow">{item.label}</Link>
+                    <Link href={item.href || '#'} onClick={(e) => { e.preventDefault(); (e.currentTarget.parentElement as HTMLDetailsElement).open = !(e.currentTarget.parentElement as HTMLDetailsElement).open; }} className="flex-grow">{item.label}</Link>
                     <ChevronDown className="ml-1 h-5 w-5 group-open:rotate-180 transition-transform flex-shrink-0" />
                   </summary>
                   <div className="pl-7 mt-1 space-y-1 transition-all duration-300 ease-in-out max-h-0 group-open:max-h-screen overflow-hidden">
@@ -211,20 +229,30 @@ export function UniversalHeader() {
               )
             )}
           </nav>
-           <div className="p-4 border-t border-border">
-              <button
+           <div className="p-4 border-t border-border space-y-3">
+              <Button
+                  asChild
+                  className="w-full flex items-center justify-center text-base font-medium text-primary-foreground bg-accent hover:bg-accent/90 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-primary-foreground bg-primary hover:bg-primary/90 transition-colors"
+              >
+                <a href={RESTAURANT_PHONE_TEL_URI}>
+                  <PhoneCall className="mr-2 h-5 w-5" /> Call Now
+                </a>
+              </Button>
+              <Button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  variant="outline"
+                  className="w-full flex items-center justify-center text-base font-medium"
               >
                   <X className="mr-2 h-5 w-5" /> Close Menu
-              </button>
+              </Button>
           </div>
         </div>
       </header>
 
       {/* Floating WhatsApp CTA Button */}
       <a
-        href={`https://wa.me/${WHATSAPP_NUMBER}`}
+        href={`https://wa.me/${WHATSAPP_NUMBER.replace(/\s+/g, '')}`}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-5 right-5 z-50 p-3 bg-green-500 text-white rounded-full shadow-lg hover:scale-110 transition-transform duration-200 ease-in-out"
