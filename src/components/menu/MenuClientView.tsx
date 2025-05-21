@@ -1,7 +1,8 @@
-
 'use client';
 
-import { useState, useMemo, type ReactElement, useEffect } from 'react';
+import React from 'react';
+
+import { useState, useMemo, type ReactElement, useEffect, cloneElement } from 'react';
 import type { MenuItemType, DishCategory } from '@/types';
 import { MenuItemCard } from '@/components/menu/MenuItemCard';
 import { MenuListItem } from '@/components/menu/MenuListItem';
@@ -107,7 +108,7 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
           categorizedItems[category] && categorizedItems[category].length > 0 && (
             <section key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="mb-10 md:mb-12 pt-4 md:pt-6">
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                {React.cloneElement(categoryIcons[category], { className: cn(categoryIcons[category].props.className, "h-5 w-5 md:h-6 md:w-6") })}
+                {cloneElement(categoryIcons[category], { className: cn(categoryIcons[category].props.className, "h-5 w-5 md:h-6 md:w-6") })}
                 <h2 className="text-xl md:text-2xl font-semibold text-primary">{category}</h2>
               </div>
               <div className="space-y-3 md:space-y-4">
