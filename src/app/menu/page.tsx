@@ -36,14 +36,18 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
     menuData.map(async (item) => {
       if (!item.description) {
         try {
+          // The AI flow itself now handles API errors and returns a default output
           const aiResponse = await generateMenuDescription({
             dishName: item.name,
             ingredients: item.ingredients.join(', '),
             cuisine: item.aiPromptDetails.cuisine,
             restaurantType: item.aiPromptDetails.restaurantType,
           });
-          return { ...item, description: aiResponse.description };
+          // Ensure aiResponse and aiResponse.description exist
+          const description = aiResponse?.description || `A delightful ${item.name.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic). Explore more about this dish!`;
+          return { ...item, description: description };
         } catch (pageLevelError) {
+          // This catch is an additional safety net if generateMenuDescription itself throws an unexpected error
           console.error(`Critical error processing AI description for ${item.name} on menu page (falling back):`, pageLevelError);
           return { 
             ...item, 
