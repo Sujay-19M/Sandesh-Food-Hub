@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
-  textClassName?: string; // To allow specific styling for the text itself
+  textClassName?: string; 
 }
 
 export function Logo({ className, textClassName }: LogoProps) {
@@ -19,7 +19,7 @@ export function Logo({ className, textClassName }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <span className={cn('font-pacifico text-3xl', textClassName)}>
+      <span className={cn('font-pacifico text-2xl', textClassName)}> {/* Reduced font size to text-2xl */}
         Sandesh Food Hub
       </span>
     </Link>

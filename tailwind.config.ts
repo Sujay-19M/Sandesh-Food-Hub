@@ -11,9 +11,10 @@ export default {
   theme: {
   	extend: {
       fontFamily: {
-        sans: ['var(--font-inter)'], // Updated from --font-geist-sans
-        mono: ['var(--font-fira-code)'], // Updated from --font-geist-mono
+        sans: ['var(--font-inter)'],
+        mono: ['var(--font-fira-code)'],
         pacifico: ['var(--font-pacifico)'],
+        playfair: ['var(--font-playfair)'], // Added Playfair Display
       },
   		colors: {
   			background: 'hsl(var(--background))',

@@ -1,26 +1,32 @@
 
 import type { Metadata } from 'next';
-import { Inter, Fira_Code, Pacifico } from 'next/font/google'; // Changed Geist_Sans/Mono to Inter/Fira_Code
+import { Inter, Fira_Code, Pacifico, Playfair_Display } from 'next/font/google'; // Added Playfair_Display
 import './globals.css';
 import { UniversalHeader } from '@/components/layout/UniversalHeader';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({
-  variable: '--font-inter', // Updated variable name
+  variable: '--font-inter',
   subsets: ['latin'],
 });
 
-const firaCode = Fira_Code({ // Changed from Geist_Mono to Fira_Code
-  variable: '--font-fira-code', // Updated variable name
+const firaCode = Fira_Code({
+  variable: '--font-fira-code',
   subsets: ['latin'],
-  weight: ['400', '700'], // Fira Code typically needs weights specified
+  weight: ['400', '700'],
 });
 
 const pacifico = Pacifico({
   variable: '--font-pacifico',
   subsets: ['latin'],
   weight: '400',
+});
+
+const playfair = Playfair_Display({ // Added Playfair Display
+  variable: '--font-playfair',
+  subsets: ['latin'],
+  weight: ['400', '700'], // Common weights for Playfair
 });
 
 export const metadata: Metadata = {
@@ -35,11 +41,11 @@ export const metadata: Metadata = {
     description: 'Delicious and fresh pure vegetarian dishes.',
     type: 'website',
     locale: 'en_IN',
-    url: 'https://sandeshfoodhub.example.com',
+    url: 'https://sandeshfoodhub.example.com', // Replace with your actual URL
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: '/custom-logo-icon.svg',
+        url: '/custom-logo-icon.svg', // Replace with your actual logo image URL if different
         width: 1200,
         height: 630,
         alt: 'Sandesh Food Hub Logo',
@@ -47,8 +53,8 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: '/custom-logo-icon.svg',
-    apple: '/custom-logo-icon.svg',
+    icon: '/custom-logo-icon.svg', // Replace with your actual favicon URL
+    apple: '/custom-logo-icon.svg', // Replace with your actual apple touch icon URL
   },
 };
 
@@ -58,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${firaCode.variable} ${pacifico.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${firaCode.variable} ${pacifico.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
             <UniversalHeader />
             <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}

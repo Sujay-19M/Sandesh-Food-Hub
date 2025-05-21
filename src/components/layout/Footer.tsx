@@ -43,7 +43,8 @@ export function Footer() {
           {/* Column 1: Brand Section */}
           <div className="space-y-4 md:col-span-2 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
             <Link href="/" className="text-primary hover:opacity-80 transition-opacity">
-              <span className="font-pacifico text-3xl font-bold">{siteName}</span>
+              {/* Site name uses Playfair Display, and a slightly smaller size */}
+              <span className="font-playfair text-2xl font-bold">{siteName}</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
               Experience the joy of pure vegetarian cuisine, crafted with passion and the freshest ingredients.
@@ -65,7 +66,7 @@ export function Footer() {
           </div>
 
           {/* Column 2: 'Our Hub' Links */}
-          <div>
+          <div className="text-center md:text-left"> {/* Centered on mobile */}
             <h3 className="text-lg font-semibold text-foreground mb-4">Our Hub</h3>
             <ul className="space-y-2">
               {footerNavLinks.ourHub.map((link) => (
@@ -79,7 +80,7 @@ export function Footer() {
           </div>
 
           {/* Column 3: 'Legal' Links */}
-          <div>
+          <div className="text-center md:text-left"> {/* Centered on mobile */}
             <h3 className="text-lg font-semibold text-foreground mb-4">Legal</h3>
             <ul className="space-y-2">
               {footerNavLinks.legal.map((link) => (
@@ -93,7 +94,7 @@ export function Footer() {
           </div>
 
           {/* Column 4: 'More' Links */}
-          <div>
+          <div className="text-center md:text-left"> {/* Centered on mobile */}
             <h3 className="text-lg font-semibold text-foreground mb-4">More</h3>
             <ul className="space-y-2">
               {footerNavLinks.more.map((link) => (
@@ -121,7 +122,8 @@ export function Footer() {
         <div className="border-t border-border/40 pt-8 mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             &copy; {currentYear}{' '}
-            <Link href="/" className="font-semibold text-foreground hover:text-primary transition-colors font-pacifico">
+            {/* Site name in copyright uses Playfair Display */}
+            <Link href="/" className="font-semibold text-foreground hover:text-primary transition-colors font-playfair">
               {siteName}
             </Link>
             . All rights reserved.
