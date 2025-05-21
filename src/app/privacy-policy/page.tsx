@@ -1,14 +1,34 @@
 
+'use client'; // Add this directive to use hooks
+
 import type { Metadata } from 'next';
+import { useState, useEffect } from 'react'; // Import hooks
 import { Container } from '@/components/layout/Container';
 import Link from 'next/link';
 
+// Metadata remains a server-side concept, but we can define it like this
+// if we still want to export it, though it's more typical for server components.
+// For a client component, you might manage title via useEffect if needed,
+// but static metadata export like this is often still processed by Next.js.
 export const metadata: Metadata = {
   title: 'Privacy Policy | Sandesh Food Hub',
   description: 'Read the Privacy Policy of Sandesh Food Hub to understand how we collect, use, and protect your personal information.',
 };
 
 export default function PrivacyPolicyPage() {
+  const [lastUpdatedDate, setLastUpdatedDate] = useState<string>('');
+
+  useEffect(() => {
+    // This code runs only on the client, after hydration
+    setLastUpdatedDate(
+      new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    );
+  }, []); // Empty dependency array means this runs once on mount
+
   return (
     <Container className="py-8 md:py-12">
       <header className="text-center mb-8 md:mb-12">
@@ -16,7 +36,7 @@ export default function PrivacyPolicyPage() {
           Privacy Policy
         </h1>
         <p className="mt-3 md:mt-4 max-w-lg md:max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-foreground/70">
-          Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          Last Updated: {lastUpdatedDate || 'Loading...'}
         </p>
       </header>
       <div className="prose prose-sm sm:prose-base md:prose-lg max-w-2xl md:max-w-3xl mx-auto text-foreground/80">
