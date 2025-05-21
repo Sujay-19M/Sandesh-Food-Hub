@@ -4,10 +4,9 @@
 import type { SVGProps } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle } from 'lucide-react';
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
-import { useTheme } from 'next-themes';
 
 interface NavItem {
   label: string;
@@ -37,12 +36,6 @@ const WHATSAPP_NUMBER = '911234567890'; // Replace with your actual WhatsApp num
 export function UniversalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     const closeMobileMenu = (event: MouseEvent) => {
@@ -52,8 +45,7 @@ export function UniversalHeader() {
       ) {
         if (
           isMobileMenuOpen &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]') &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle theme"]')
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]')
         ) {
           setIsMobileMenuOpen(false);
         }
@@ -69,40 +61,10 @@ export function UniversalHeader() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
-  };
   
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
-
-  if (!isMounted) { 
-    // Skeleton or basic layout for SSR to avoid hydration mismatch for theme toggle
-    return (
-      <header className="sticky top-0 z-50 bg-background shadow-md">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 md:h-20 items-center justify-between">
-            <div className="flex items-center md:hidden"> {/* Placeholder for mobile theme toggle */}
-              <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
-            </div>
-            <div className="flex items-center"> {/* Placeholder for logo */}
-              <CustomLogoIcon className="h-24 w-24 text-accent opacity-0" /> {/* Keep dimensions for layout */}
-            </div>
-             <div className="hidden md:flex items-center space-x-2"> {/* Placeholder for desktop nav */}
-              <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
-              <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
-              <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
-            </div>
-            <div className="flex items-center"> {/* Placeholder for desktop theme toggle / mobile hamburger */}
-               <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
-            </div>
-          </div>
-        </div>
-      </header>
-    );
-  }
 
   return (
     <>
@@ -153,25 +115,13 @@ export function UniversalHeader() {
                 )
               )}
             </nav>
-
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
-              aria-label="Toggle theme"
-            >
-              {resolvedTheme === 'dark' ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
-            </button>
+            {/* Theme toggle button removed from here */}
           </div>
 
           {/* Mobile Header */}
           <div className="md:hidden flex h-16 items-center justify-between">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
-              aria-label="Toggle theme"
-            >
-              {resolvedTheme === 'dark' ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
-            </button>
+            {/* Theme toggle button removed from here */}
+            <div className="w-8 h-8"></div> {/* Spacer to help center logo if needed */}
             <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
                <CustomLogoIcon className="h-20 w-20 text-accent" />
             </Link>
@@ -199,7 +149,6 @@ export function UniversalHeader() {
               item.dropdown ? (
                 <details key={item.label} className="group">
                   <summary className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-muted hover:text-primary cursor-pointer list-none transition-colors">
-                    {/* Main link for dropdown parent on mobile can navigate or just toggle */}
                     <Link href={item.href || '#'} onClick={handleLinkClick} className="flex-grow">{item.label}</Link>
                     <ChevronDown className="ml-1 h-5 w-5 group-open:rotate-180 transition-transform flex-shrink-0" />
                   </summary>
