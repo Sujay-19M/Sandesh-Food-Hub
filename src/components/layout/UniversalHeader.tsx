@@ -79,22 +79,23 @@ export function UniversalHeader() {
   };
 
   if (!isMounted) { 
+    // Skeleton or basic layout for SSR to avoid hydration mismatch for theme toggle
     return (
       <header className="sticky top-0 z-50 bg-background shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 items-center justify-between">
-            <div className="flex items-center md:hidden"> 
+            <div className="flex items-center md:hidden"> {/* Placeholder for mobile theme toggle */}
               <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             </div>
-            <div className="flex items-center"> 
-              <CustomLogoIcon className="h-24 w-24 text-accent opacity-0" /> 
+            <div className="flex items-center"> {/* Placeholder for logo */}
+              <CustomLogoIcon className="h-24 w-24 text-accent opacity-0" /> {/* Keep dimensions for layout */}
             </div>
-             <div className="hidden md:flex items-center space-x-2"> 
+             <div className="hidden md:flex items-center space-x-2"> {/* Placeholder for desktop nav */}
               <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
               <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
               <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
             </div>
-            <div className="flex items-center"> 
+            <div className="flex items-center"> {/* Placeholder for desktop theme toggle / mobile hamburger */}
                <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             </div>
           </div>
