@@ -8,7 +8,7 @@ import { MenuListItem } from '@/components/menu/MenuListItem';
 import { Separator } from '@/components/ui/separator';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MenuClientViewProps {
@@ -92,7 +92,7 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
       items[cat] = [];
     });
 
-    initialItems.forEach(item => { // Directly use initialItems
+    initialItems.forEach(item => { 
       if (items[item.category]) {
         items[item.category].push(item);
       }
@@ -103,10 +103,9 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
 
   return (
     <>
-      {/* Search bar removed */}
       {categories.map((category) => (
           categorizedItems[category] && categorizedItems[category].length > 0 && (
-            <section key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="mb-10 md:mb-12 pt-4 md:pt-6"> {/* Added padding-top here */}
+            <section key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="mb-10 md:mb-12 pt-4 md:pt-6">
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                 {React.cloneElement(categoryIcons[category], { className: cn(categoryIcons[category].props.className, "h-5 w-5 md:h-6 md:w-6") })}
                 <h2 className="text-xl md:text-2xl font-semibold text-primary">{category}</h2>

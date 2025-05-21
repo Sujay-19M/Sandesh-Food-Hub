@@ -35,8 +35,6 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
   const processedMenuData = await Promise.all(
     menuData.map(async (item) => {
       if (!item.description) {
-        // The generateMenuDescription flow now handles errors internally and provides a fallback.
-        // It should always resolve with the GenerateMenuDescriptionOutput structure.
         try {
           const aiResponse = await generateMenuDescription({
             dishName: item.name,
@@ -44,18 +42,16 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
             cuisine: item.aiPromptDetails.cuisine,
             restaurantType: item.aiPromptDetails.restaurantType,
           });
-          // aiResponse will always have a description, either AI-generated or a fallback from the flow.
           return { ...item, description: aiResponse.description };
         } catch (pageLevelError) {
-          // This catch is an additional safety net in case the flow itself unexpectedly rejects.
-          console.error(`Critical error processing AI description for ${item.name} on menu page:`, pageLevelError);
+          console.error(`Critical error processing AI description for ${item.name} on menu page (falling back):`, pageLevelError);
           return { 
             ...item, 
             description: `A delightful ${item.name.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic). Explore more about this dish!` 
           };
         }
       }
-      return item; // Return item as is if description already exists
+      return item;
     })
   );
   return processedMenuData;
@@ -86,11 +82,11 @@ export default async function MenuPage() {
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>
-        <header className="text-center mb-4 md:mb-6 sticky top-16 md:top-20 z-30 bg-background/90 backdrop-blur-sm -mx-4 px-4 py-3">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-primary">
+        <header className="text-center mb-8 md:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
             Our Delicious Menu
           </h1>
-          <p className="mt-2 md:mt-3 max-w-lg md:max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-foreground/70">
+          <p className="mt-3 md:mt-4 max-w-lg md:max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-foreground/70">
             Explore a variety of pure vegetarian dishes (no onion, no garlic), crafted with passion and the freshest ingredients at Sandesh Food Hub.
           </p>
         </header>
