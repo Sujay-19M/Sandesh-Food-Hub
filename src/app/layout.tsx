@@ -67,7 +67,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${firaCode.variable} ${pacifico.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
             <UniversalHeader />
-            <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
+            <main className="flex-grow">{/* Removed padding-top pt-16 md:pt-20 */}
               {children}
             </main>
             <Footer />
