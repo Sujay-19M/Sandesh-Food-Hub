@@ -1,10 +1,10 @@
 
 import Link from 'next/link';
 import { Container } from './Container';
-import { Facebook, Instagram, Youtube, MessageCircle, Info } from 'lucide-react'; // Added Info
+import { Facebook, Instagram, Youtube, MessageCircle, Info } from 'lucide-react';
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Added Popover components
-import { Button } from '@/components/ui/button'; // Added Button for PopoverTrigger
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from '@/components/ui/button';
 
 const footerNavLinks = {
   ourHub: [
@@ -141,7 +141,7 @@ export function Footer() {
               <PopoverContent side="top" align="center" className="w-auto p-3 shadow-lg rounded-md bg-popover text-popover-foreground border-border text-xs">
                 This website was crafted by Sujay Mukherjee ·{' '}
                 <a 
-                  href="https://smthingcreations.example.com" // Replace with actual URL
+                  href="https://smthing.in/"
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="font-medium text-accent hover:text-secondary transition-colors"
