@@ -2,9 +2,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { UniversalHeader } from '@/components/layout/UniversalHeader'; // Changed
+import { UniversalHeader } from '@/components/layout/UniversalHeader';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,16 +33,16 @@ export const metadata: Metadata = {
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: '/hand-platter-logo.svg', // Assuming this is your main OG image now
-        width: 1200, // Adjust if your SVG has different intrinsic dimensions
-        height: 630, // Adjust
+        url: '/hand-platter-logo.svg', 
+        width: 1200,
+        height: 630,
         alt: 'Sandesh Food Hub Logo',
       },
     ],
   },
   icons: {
-    icon: '/hand-platter-logo.svg', // Favicon
-    apple: '/hand-platter-logo.svg', // Apple touch icon
+    icon: '/hand-platter-logo.svg',
+    apple: '/hand-platter-logo.svg',
   },
 };
 
@@ -51,14 +52,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
-        <UniversalHeader /> {/* Changed from Navbar */}
-        <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
-          {children}
-        </main>
-        <Footer />
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <UniversalHeader />
+          <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
+            {children}
+          </main>
+          <Footer />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

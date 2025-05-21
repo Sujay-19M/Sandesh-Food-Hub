@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react';
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 interface NavItem {
   label: string;
@@ -18,10 +19,10 @@ const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Menu',
-    href: '/menu', // Main link to menu page
+    href: '/menu', 
     dropdown: [
-      { label: 'Starters', href: '/menu#starters' },
-      { label: 'Main Course', href: '/menu#main-course' },
+      { label: 'Starters', href: '/menu#appetizers' },
+      { label: 'Main Course', href: '/menu#main-courses' },
       { label: 'Desserts', href: '/menu#desserts' },
       { label: 'Beverages', href: '/menu#beverages' },
     ],
@@ -31,24 +32,16 @@ const navItems: NavItem[] = [
   { label: 'Contact', href: '/contact' },
 ];
 
-// Replace with your actual restaurant's WhatsApp number
-const WHATSAPP_NUMBER = '911234567890'; // Example: Use country code without '+' or '00'
-const RESTAURANT_PHONE = '+911234567890'; // For call button if needed elsewhere
+const WHATSAPP_NUMBER = '911234567890'; // Replace with your actual WhatsApp number
 
 export function UniversalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); // Placeholder for theme state
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
-    // Attempt to read prefers-color-scheme for initial state
-    if (typeof window !== 'undefined') {
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setIsDarkMode(prefersDark); // Set initial state based on system preference
-      // The actual theme switching would happen in a theme provider
-    }
   }, []);
 
   useEffect(() => {
@@ -78,32 +71,30 @@ export function UniversalHeader() {
   };
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    // In a real app, you would also update the class on <html> or <body>
-    // e.g., document.documentElement.classList.toggle('dark');
-    // And persist this preference.
-    console.log('Theme toggled, dark mode is now:', !isDarkMode);
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
   
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
 
-  if (!isMounted) {
+  if (!isMounted) { // Skeleton loader for header to prevent hydration mismatch
     return (
       <header className="sticky top-0 z-50 bg-background shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            {/* Placeholder for SSR/initial load */}
-            <div className="flex items-center">
-              <div className="h-10 w-10 bg-muted rounded-full animate-pulse"></div>
+          <div className="flex h-16 md:h-20 items-center justify-between">
+            <div className="flex items-center md:hidden"> {/* Mobile theme toggle placeholder */}
+              <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             </div>
-            <div className="hidden md:flex items-center space-x-4">
-              <div className="h-6 w-20 bg-muted rounded animate-pulse"></div>
-              <div className="h-6 w-20 bg-muted rounded animate-pulse"></div>
-              <div className="h-6 w-20 bg-muted rounded animate-pulse"></div>
+            <div className="flex items-center"> {/* Logo placeholder */}
+              <CustomLogoIcon className="h-24 w-24 text-accent opacity-0" /> {/* Keep space */}
             </div>
-            <div className="flex items-center">
+             <div className="hidden md:flex items-center space-x-2"> {/* Desktop Nav placeholder */}
+              <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
+              <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
+              <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
+            </div>
+            <div className="flex items-center"> {/* Desktop theme toggle placeholder / Mobile menu icon placeholder */}
                <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             </div>
           </div>
@@ -167,7 +158,7 @@ export function UniversalHeader() {
               className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
               aria-label="Toggle theme"
             >
-              {isDarkMode ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
+              {resolvedTheme === 'dark' ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
             </button>
           </div>
 
@@ -178,9 +169,9 @@ export function UniversalHeader() {
               className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
               aria-label="Toggle theme"
             >
-              {isDarkMode ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
+              {resolvedTheme === 'dark' ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
             </button>
-            <Link href="/" className="flex-shrink-0" aria-label="Sandesh Food Hub Home">
+            <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
                <CustomLogoIcon className="h-20 w-20 text-accent" />
             </Link>
             <button
@@ -207,6 +198,7 @@ export function UniversalHeader() {
               item.dropdown ? (
                 <details key={item.label} className="group">
                   <summary className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-muted hover:text-primary cursor-pointer list-none transition-colors">
+                    {/* Main link for dropdown parent on mobile can navigate or just toggle */}
                     <Link href={item.href || '#'} onClick={handleLinkClick} className="flex-grow">{item.label}</Link>
                     <ChevronDown className="ml-1 h-5 w-5 group-open:rotate-180 transition-transform flex-shrink-0" />
                   </summary>
