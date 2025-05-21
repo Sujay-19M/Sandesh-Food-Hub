@@ -32,7 +32,7 @@ const socialLinks = [
   { label: 'Facebook', href: 'https://facebook.com/sandeshfoodhub', icon: Facebook },
   { label: 'Instagram', href: 'https://instagram.com/sandeshfoodhub', icon: Instagram },
   { label: 'YouTube', href: 'https://youtube.com/sandeshfoodhub', icon: Youtube },
-  { label: 'WhatsApp', href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '911234567890'}`, icon: MessageCircle },
+  { label: 'WhatsApp', href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919332353778'}`, icon: MessageCircle }, // Updated to use env var with fallback
 ];
 
 export function Footer() {
@@ -44,13 +44,11 @@ export function Footer() {
       <Container className="py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: Brand Section */}
-          <div className="space-y-4 md:col-span-2 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
-            <Link href="/" className="inline-block mb-2 text-accent hover:opacity-80 transition-opacity">
-              <CustomLogoIcon className="h-20 w-20" />
+          <div className="space-y-3 md:col-span-2 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
+            <Link href="/" className="inline-block text-accent hover:opacity-80 transition-opacity">
+              <CustomLogoIcon className="h-24 w-24" /> {/* Increased size as per previous updates */}
             </Link>
-            <Link href="/" className="text-primary-foreground hover:text-secondary transition-colors">
-              <span className="font-playfair text-2xl font-bold">{siteName}</span>
-            </Link>
+            {/* Site name text removed as per request, relying on logo */}
             <p className="text-sm text-muted-foreground/80 max-w-xs mx-auto md:mx-0">
               Experience the joy of pure vegetarian cuisine, crafted with passion and the freshest ingredients.
             </p>
