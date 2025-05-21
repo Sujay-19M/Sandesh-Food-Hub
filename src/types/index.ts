@@ -1,4 +1,21 @@
-export type DishCategory = 'Appetizers' | 'Main Courses' | 'Desserts' | 'Beverages';
+
+export type DishCategory =
+  | 'South Indian'
+  | 'Starters'
+  | 'Salad & Raita'
+  | 'Indian Breads'
+  | 'Rice & Dal'
+  | 'Indian Gravy'
+  | 'Chaat'
+  | 'Momo & Roll'
+  | 'Noodles'
+  | 'Burger'
+  | 'Pizza'
+  | 'Sandwich'
+  | 'Tea & Coffee'
+  | 'Lassi'
+  | 'Ice Cream'
+  | 'Shakes';
 
 export interface MenuItemType {
   id: string;
@@ -10,7 +27,7 @@ export interface MenuItemType {
   description?: string;
   aiPromptDetails: {
     cuisine: string;
-    restaurantType: 'pure vegetarian' | 'vegan'; 
+    restaurantType: 'pure vegetarian (no onion no garlic)';
   };
   dataAiHint?: string;
 }
