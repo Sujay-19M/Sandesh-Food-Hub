@@ -129,6 +129,7 @@ export function UniversalHeader() {
                             href={subItem.href || '#'}
                             className="block px-4 py-2 text-sm hover:bg-muted hover:text-primary transition-colors"
                             role="menuitem"
+                            onClick={handleLinkClick}
                           >
                             {subItem.label}
                           </Link>
@@ -141,6 +142,7 @@ export function UniversalHeader() {
                     key={item.label}
                     href={item.href || '#'}
                     className="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors"
+                    onClick={handleLinkClick}
                   >
                     {item.label}
                   </Link>
