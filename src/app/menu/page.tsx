@@ -35,15 +35,25 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
   const processedMenuData = await Promise.all(
     menuData.map(async (item) => {
       if (!item.description) {
-        // The generateMenuDescription flow now handles errors internally and provides a fallback
-        const aiResponse = await generateMenuDescription({
-          dishName: item.name,
-          ingredients: item.ingredients.join(', '),
-          cuisine: item.aiPromptDetails.cuisine,
-          restaurantType: item.aiPromptDetails.restaurantType,
-        });
-        // aiResponse will always have a description, either AI-generated or a fallback from the flow.
-        return { ...item, description: aiResponse.description };
+        // The generateMenuDescription flow now handles errors internally and provides a fallback.
+        // It should always resolve with the GenerateMenuDescriptionOutput structure.
+        try {
+          const aiResponse = await generateMenuDescription({
+            dishName: item.name,
+            ingredients: item.ingredients.join(', '),
+            cuisine: item.aiPromptDetails.cuisine,
+            restaurantType: item.aiPromptDetails.restaurantType,
+          });
+          // aiResponse will always have a description, either AI-generated or a fallback from the flow.
+          return { ...item, description: aiResponse.description };
+        } catch (pageLevelError) {
+          // This catch is an additional safety net in case the flow itself unexpectedly rejects.
+          console.error(`Critical error processing AI description for ${item.name} on menu page:`, pageLevelError);
+          return { 
+            ...item, 
+            description: `A delightful ${item.name.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic). Explore more about this dish!` 
+          };
+        }
       }
       return item; // Return item as is if description already exists
     })

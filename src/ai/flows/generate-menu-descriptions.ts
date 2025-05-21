@@ -62,7 +62,7 @@ const generateMenuDescriptionFlow = ai.defineFlow(
   },
   async (input: GenerateMenuDescriptionInput): Promise<GenerateMenuDescriptionOutput> => {
     try {
-      const {output} = await prompt(input);
+      const {output} = await prompt(input); // This is where the 429 error originates
       if (output && output.description) {
         return output;
       }
@@ -73,7 +73,7 @@ const generateMenuDescriptionFlow = ai.defineFlow(
         description: `A delightful ${input.dishName.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic).` 
       };
     } catch (error) {
-      console.error(`Error in generateMenuDescriptionFlow for ${input.dishName}:`, error);
+      console.error(`Error in generateMenuDescriptionFlow for ${input.dishName} (e.g. API rate limit):`, error);
       // Return a default description in the expected output format
       return { 
         description: `A delightful ${input.dishName.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic).` 
@@ -81,4 +81,3 @@ const generateMenuDescriptionFlow = ai.defineFlow(
     }
   }
 );
-
