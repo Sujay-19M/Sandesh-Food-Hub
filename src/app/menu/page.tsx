@@ -1,5 +1,5 @@
 
-import type { Metadata, ResolvingMetadata } from 'next';
+import type { Metadata } from 'next';
 import { menuData, categories } from '@/data/menuData';
 import type { MenuItemType, DishCategory } from '@/types';
 import { generateMenuDescription } from '@/ai/flows/generate-menu-descriptions';
@@ -35,21 +35,17 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
   const processedMenuData = await Promise.all(
     menuData.map(async (item) => {
       if (!item.description) {
-        try {
-          const aiResponse = await generateMenuDescription({
-            dishName: item.name,
-            ingredients: item.ingredients.join(', '),
-            cuisine: item.aiPromptDetails.cuisine,
-            restaurantType: item.aiPromptDetails.restaurantType,
-          });
-          return { ...item, description: aiResponse.description };
-        } catch (error) {
-          console.error(`Failed to generate description for ${item.name}:`, error);
-          // Fallback description if AI generation fails
-          return { ...item, description: `A delightful ${item.name.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic).` };
-        }
+        // The generateMenuDescription flow now handles errors internally and provides a fallback
+        const aiResponse = await generateMenuDescription({
+          dishName: item.name,
+          ingredients: item.ingredients.join(', '),
+          cuisine: item.aiPromptDetails.cuisine,
+          restaurantType: item.aiPromptDetails.restaurantType,
+        });
+        // aiResponse will always have a description, either AI-generated or a fallback from the flow.
+        return { ...item, description: aiResponse.description };
       }
-      return item;
+      return item; // Return item as is if description already exists
     })
   );
   return processedMenuData;
@@ -99,3 +95,4 @@ export default async function MenuPage() {
     </div>
   );
 }
+

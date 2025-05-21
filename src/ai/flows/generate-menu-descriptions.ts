@@ -1,3 +1,4 @@
+
 // This file is machine-generated - edit at your own risk.
 
 'use server';
@@ -59,8 +60,25 @@ const generateMenuDescriptionFlow = ai.defineFlow(
     inputSchema: GenerateMenuDescriptionInputSchema,
     outputSchema: GenerateMenuDescriptionOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-    return output!;
+  async (input: GenerateMenuDescriptionInput): Promise<GenerateMenuDescriptionOutput> => {
+    try {
+      const {output} = await prompt(input);
+      if (output && output.description) {
+        return output;
+      }
+      // This case handles if the AI returns a valid structure but no description text,
+      // or if the output itself is null/undefined.
+      console.warn(`AI prompt for ${input.dishName} returned an empty or invalid description. Output:`, output);
+      return { 
+        description: `A delightful ${input.dishName.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic).` 
+      };
+    } catch (error) {
+      console.error(`Error in generateMenuDescriptionFlow for ${input.dishName}:`, error);
+      // Return a default description in the expected output format
+      return { 
+        description: `A delightful ${input.dishName.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic).` 
+      };
+    }
   }
 );
+
