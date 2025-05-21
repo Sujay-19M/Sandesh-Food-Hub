@@ -1,7 +1,7 @@
 
 import Link from 'next/link';
 import { Container } from './Container';
-import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon'; // Using the custom logo
+import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
 
 const footerNavLinks = {
@@ -20,7 +20,9 @@ const footerNavLinks = {
   more: [
     { label: 'Franchise', href: '/franchise' },
     { label: 'Careers', href: '/careers' },
-    { label: 'Blog', href: '/blog' }, // Example: "Coming Soon" or link to actual blog
+    { label: 'Blog', href: '/blog' },
+    { label: 'RSS Feed', href: '/rss.xml', newTab: true },
+    { label: 'Sitemap', href: '/sitemap.xml', newTab: true },
   ],
 };
 
@@ -28,7 +30,7 @@ const socialLinks = [
   { label: 'Facebook', href: 'https://facebook.com/sandeshfoodhub', icon: Facebook },
   { label: 'Instagram', href: 'https://instagram.com/sandeshfoodhub', icon: Instagram },
   { label: 'YouTube', href: 'https://youtube.com/sandeshfoodhub', icon: Youtube },
-  { label: 'WhatsApp', href: 'https://wa.me/919332353778', icon: MessageCircle }, // Replace with actual WhatsApp number
+  { label: 'WhatsApp', href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '911234567890'}`, icon: MessageCircle },
 ];
 
 export function Footer() {
@@ -40,12 +42,12 @@ export function Footer() {
       <Container className="py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: Brand Section */}
-          <div className="space-y-4 md:col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center space-x-2 text-xl font-semibold text-primary hover:opacity-80 transition-opacity">
-              <CustomLogoIcon className="h-16 w-16 text-accent" /> {/* Adjusted size for footer */}
+          <div className="space-y-3 md:col-span-2 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
+            <Link href="/" className="flex flex-col items-center md:items-start text-primary hover:opacity-80 transition-opacity">
+              <CustomLogoIcon className="h-16 w-16 text-accent mb-2" />
               <span className="font-bold text-2xl">{siteName}</span>
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
               Experience the joy of pure vegetarian cuisine, crafted with passion and the freshest ingredients.
             </p>
             <div className="flex space-x-4 pt-2">
@@ -98,10 +100,10 @@ export function Footer() {
             <ul className="space-y-2">
               {footerNavLinks.more.map((link) => (
                 <li key={link.label}>
-                   {link.href.startsWith('http') || link.href.endsWith('.xml') ? (
-                     <a 
-                       href={link.href} 
-                       target="_blank" 
+                   {link.newTab ? (
+                     <a
+                       href={link.href}
+                       target="_blank"
                        rel="noopener noreferrer"
                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
                      >
