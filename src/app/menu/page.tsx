@@ -22,7 +22,7 @@ import {
   Sandwich as SandwichIcon, // Renaming to avoid conflict if any
   GlassWater,
   IceCream,
-  Milkshake
+  Blend // Changed from Blender to Blend
 } from 'lucide-react';
 import { MenuClientView } from '@/components/menu/MenuClientView';
 
@@ -62,16 +62,16 @@ const categoryIcons: Record<DishCategory, React.ReactElement> = {
   'Indian Breads': <Wheat className="h-8 w-8 text-primary" />,
   'Rice & Dal': <CookingPot className="h-8 w-8 text-primary" />,
   'Indian Gravy': <Soup className="h-8 w-8 text-primary" />,
-  'Chaat': <IceCream2 className="h-8 w-8 text-primary" />, // Changed from IceCream
+  'Chaat': <IceCream2 className="h-8 w-8 text-primary" />, 
   'Momo & Roll': <WrapText className="h-8 w-8 text-primary" />,
-  'Noodles': <Vegan className="h-8 w-8 text-primary" />, // Using Vegan as a placeholder
-  'Burger': <Beef className="h-8 w-8 text-primary" />, // Changed from Burger to Beef
+  'Noodles': <Vegan className="h-8 w-8 text-primary" />, 
+  'Burger': <Beef className="h-8 w-8 text-primary" />, 
   'Pizza': <Pizza className="h-8 w-8 text-primary" />,
   'Sandwich': <SandwichIcon className="h-8 w-8 text-primary" />,
   'Tea & Coffee': <Coffee className="h-8 w-8 text-primary" />,
   'Lassi': <GlassWater className="h-8 w-8 text-primary" />,
   'Ice Cream': <IceCream className="h-8 w-8 text-primary" />,
-  'Shakes': <Milkshake className="h-8 w-8 text-primary" />,
+  'Shakes': <Blend className="h-8 w-8 text-primary" />, // Changed from Blender to Blend
    // Fallback for categories removed in the previous step, can be removed if not needed
   'Appetizers': <Leaf className="h-8 w-8 text-primary" />, // Kept for safety, though new categories should cover these
   'Main Courses': <UtensilsCrossed className="h-8 w-8 text-primary" />, // Kept for safety
