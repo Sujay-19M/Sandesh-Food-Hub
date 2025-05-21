@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -9,6 +10,11 @@ export default {
   ],
   theme: {
   	extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)'], // Updated from --font-geist-sans
+        mono: ['var(--font-fira-code)'], // Updated from --font-geist-mono
+        pacifico: ['var(--font-pacifico)'],
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

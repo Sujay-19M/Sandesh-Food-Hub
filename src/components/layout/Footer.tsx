@@ -1,7 +1,6 @@
 
 import Link from 'next/link';
 import { Container } from './Container';
-import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
 
 const footerNavLinks = {
@@ -42,10 +41,9 @@ export function Footer() {
       <Container className="py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: Brand Section */}
-          <div className="space-y-3 md:col-span-2 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
-            <Link href="/" className="flex flex-col items-center md:items-start text-primary hover:opacity-80 transition-opacity">
-              <CustomLogoIcon className="h-16 w-16 text-accent mb-2" />
-              <span className="font-bold text-2xl">{siteName}</span>
+          <div className="space-y-4 md:col-span-2 lg:col-span-1 flex flex-col items-center text-center md:items-start md:text-left">
+            <Link href="/" className="text-primary hover:opacity-80 transition-opacity">
+              <span className="font-pacifico text-3xl font-bold">{siteName}</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
               Experience the joy of pure vegetarian cuisine, crafted with passion and the freshest ingredients.
@@ -123,7 +121,7 @@ export function Footer() {
         <div className="border-t border-border/40 pt-8 mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             &copy; {currentYear}{' '}
-            <Link href="/" className="font-semibold text-foreground hover:text-primary transition-colors">
+            <Link href="/" className="font-semibold text-foreground hover:text-primary transition-colors font-pacifico">
               {siteName}
             </Link>
             . All rights reserved.

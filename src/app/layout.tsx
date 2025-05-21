@@ -1,19 +1,26 @@
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter, Fira_Code, Pacifico } from 'next/font/google'; // Changed Geist_Sans/Mono to Inter/Fira_Code
 import './globals.css';
 import { UniversalHeader } from '@/components/layout/UniversalHeader';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
+  variable: '--font-inter', // Updated variable name
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const firaCode = Fira_Code({ // Changed from Geist_Mono to Fira_Code
+  variable: '--font-fira-code', // Updated variable name
   subsets: ['latin'],
+  weight: ['400', '700'], // Fira Code typically needs weights specified
+});
+
+const pacifico = Pacifico({
+  variable: '--font-pacifico',
+  subsets: ['latin'],
+  weight: '400',
 });
 
 export const metadata: Metadata = {
@@ -28,11 +35,11 @@ export const metadata: Metadata = {
     description: 'Delicious and fresh pure vegetarian dishes.',
     type: 'website',
     locale: 'en_IN',
-    url: 'https://sandeshfoodhub.example.com', 
+    url: 'https://sandeshfoodhub.example.com',
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: '/custom-logo-icon.svg', 
+        url: '/custom-logo-icon.svg',
         width: 1200,
         height: 630,
         alt: 'Sandesh Food Hub Logo',
@@ -51,14 +58,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${firaCode.variable} ${pacifico.variable}`} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
-          <UniversalHeader />
-          <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
-            {children}
-          </main>
-          <Footer />
-          <Toaster />
+            <UniversalHeader />
+            <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
+              {children}
+            </main>
+            <Footer />
+            <Toaster />
       </body>
     </html>
   );
