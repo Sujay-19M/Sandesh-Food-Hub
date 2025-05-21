@@ -4,9 +4,11 @@
 import type { SVGProps } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, MessageCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react';
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes'; // New import
+import { Button } from '@/components/ui/button'; // For theme toggle button styling
 
 interface NavItem {
   label: string;
@@ -36,6 +38,10 @@ const WHATSAPP_NUMBER = '911234567890'; // Replace with your actual WhatsApp num
 export function UniversalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => setIsMounted(true), []);
 
   useEffect(() => {
     const closeMobileMenu = (event: MouseEvent) => {
@@ -45,7 +51,8 @@ export function UniversalHeader() {
       ) {
         if (
           isMobileMenuOpen &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]')
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]') &&
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle theme"]') // Prevent closing on theme toggle
         ) {
           setIsMobileMenuOpen(false);
         }
@@ -64,6 +71,31 @@ export function UniversalHeader() {
   
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const ThemeToggleButton = () => {
+    if (!isMounted) {
+      return (
+        <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10" disabled>
+          <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme (loading)</span>
+        </Button>
+      );
+    }
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="h-9 w-9 md:h-10 md:w-10"
+        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+        aria-label="Toggle theme"
+      >
+        <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <span className="sr-only">Toggle theme</span>
+      </Button>
+    );
   };
 
   return (
@@ -115,13 +147,12 @@ export function UniversalHeader() {
                 )
               )}
             </nav>
-            {/* Theme toggle button removed from here */}
+            <ThemeToggleButton />
           </div>
 
           {/* Mobile Header */}
           <div className="md:hidden flex h-16 items-center justify-between">
-            {/* Theme toggle button removed from here */}
-            <div className="w-8 h-8"></div> {/* Spacer to help center logo if needed */}
+            <ThemeToggleButton />
             <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
                <CustomLogoIcon className="h-20 w-20 text-accent" />
             </Link>
