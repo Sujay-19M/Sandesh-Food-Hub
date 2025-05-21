@@ -5,7 +5,6 @@ import type { MenuItemType, DishCategory } from '@/types';
 import { generateMenuDescription } from '@/ai/flows/generate-menu-descriptions';
 import { Container } from '@/components/layout/Container';
 import { 
-  Leaf, 
   UtensilsCrossed, 
   CakeSlice, 
   Coffee,
@@ -54,7 +53,7 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
   return processedMenuData;
 }
 
-const categoryIcons: Record<DishCategory, React.ReactElement> = {
+const categoryIcons: Record<DishCategory, ReactElement> = {
   'South Indian': <UtensilsCrossed className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
   'Starters': <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
   'Salad & Raita': <Salad className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
@@ -71,11 +70,6 @@ const categoryIcons: Record<DishCategory, React.ReactElement> = {
   'Lassi': <GlassWater className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
   'Ice Cream': <IceCream className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
   'Shakes': <Blend className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
-  // Fallbacks - can be removed if all categories are explicitly handled
-  'Appetizers': <Leaf className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
-  'Main Courses': <UtensilsCrossed className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
-  'Desserts': <CakeSlice className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
-  'Beverages': <Coffee className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
 };
 
 export default async function MenuPage() {
@@ -84,7 +78,7 @@ export default async function MenuPage() {
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>
-        <header className="text-center mb-8 md:mb-12">
+        <header className="text-center mb-4 md:mb-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
             Our Delicious Menu
           </h1>
