@@ -4,7 +4,7 @@
 import type { SVGProps } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, MessageCircle, PhoneCall } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle, PhoneCall, Sun, Moon } from 'lucide-react'; // Added Sun, Moon
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -55,7 +55,8 @@ export function UniversalHeader() {
       ) {
         if (
           isMobileMenuOpen &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]')
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]') &&
+          !(event.target as HTMLElement).closest('a[aria-label="Call restaurant"]') // Ensure clicking mobile call icon doesn't close menu if it were to open it
         ) {
           setIsMobileMenuOpen(false);
         }
@@ -76,21 +77,26 @@ export function UniversalHeader() {
     setIsMobileMenuOpen(false);
   };
 
-  if (!isMounted) {
+  if (!isMounted) { // Keep skeleton for initial render to prevent layout shifts
     return (
         <header className="sticky top-0 z-50 bg-background text-foreground shadow-md">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 md:h-20 items-center justify-between">
-                    <div className="md:flex-shrink-0">
+                    <div className="hidden md:block"> 
                         <CustomLogoIcon className="h-24 w-24 text-accent" />
                     </div>
+                     {/* Placeholder for mobile left icon */}
+                    <div className="md:hidden w-9 h-9 bg-muted rounded-full animate-pulse"></div>
                     <div className="hidden md:flex mx-auto items-center space-x-2">
-                         <span className="p-2">Home</span>
-                         <span className="p-2">Menu</span>
-                         <span className="p-2">Contact</span>
+                         {/* Simplified skeleton for nav items */}
+                         <span className="h-5 w-16 bg-muted rounded animate-pulse"></span>
+                         <span className="h-5 w-16 bg-muted rounded animate-pulse"></span>
+                         <span className="h-5 w-16 bg-muted rounded animate-pulse"></span>
                     </div>
                     <div className="flex items-center">
-                        <div className="w-9 h-9 md:w-10 md:h-10 bg-muted rounded-full animate-pulse"></div>
+                        {/* Desktop Call Button Skeleton */}
+                        <div className="hidden md:block h-9 w-24 bg-muted rounded-md animate-pulse"></div>
+                        {/* Mobile Hamburger Skeleton */}
                         <div className="md:hidden w-9 h-9 ml-2 bg-muted rounded-full animate-pulse"></div>
                     </div>
                 </div>
@@ -173,7 +179,11 @@ export function UniversalHeader() {
 
           {/* Mobile Header */}
           <div className="md:hidden flex h-16 items-center justify-between">
-            <div className="w-9 md:w-10"></div> {/* Placeholder for spacing if theme toggle was on left */}
+             <Button asChild variant="ghost" size="icon" className="p-2" aria-label="Call restaurant">
+                <a href={RESTAURANT_PHONE_TEL_URI}>
+                  <PhoneCall className="h-6 w-6 text-primary" />
+                </a>
+            </Button>
             <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
                <CustomLogoIcon className="h-20 w-20 text-accent" />
             </Link>
@@ -192,7 +202,7 @@ export function UniversalHeader() {
         <div
           ref={mobileMenuRef}
           className={cn(
-            'md:hidden fixed inset-x-0 top-16 bg-background shadow-xl transition-all duration-300 ease-in-out transform overflow-y-auto max-h-[calc(100vh-4rem)] z-40',
+            'md:hidden fixed inset-x-0 top-16 bg-background shadow-xl transition-all duration-300 ease-in-out transform overflow-y-auto max-h-[calc(100vh-4rem)] z-40', // Adjusted top to 16 (h-16 of mobile header)
             isMobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
           )}
         >
