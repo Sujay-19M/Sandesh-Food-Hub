@@ -1,9 +1,11 @@
 
 'use client';
 
+import type { SVGProps } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, MessageCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react';
+import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
 
 interface NavItem {
@@ -16,6 +18,7 @@ const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Menu',
+    href: '/menu', // Main link to menu page
     dropdown: [
       { label: 'Starters', href: '/menu#starters' },
       { label: 'Main Course', href: '/menu#main-course' },
@@ -29,17 +32,37 @@ const navItems: NavItem[] = [
 ];
 
 // Replace with your actual restaurant's WhatsApp number
-const WHATSAPP_NUMBER = '12345678900'; // Example: Use country code without '+' or '00'
+const WHATSAPP_NUMBER = '911234567890'; // Example: Use country code without '+' or '00'
+const RESTAURANT_PHONE = '+911234567890'; // For call button if needed elsewhere
 
 export function UniversalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false); // Placeholder for theme state
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    // Attempt to read prefers-color-scheme for initial state
+    if (typeof window !== 'undefined') {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setIsDarkMode(prefersDark); // Set initial state based on system preference
+      // The actual theme switching would happen in a theme provider
+    }
+  }, []);
 
   useEffect(() => {
     const closeMobileMenu = (event: MouseEvent) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
-        if (isMobileMenuOpen && !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]')) {
-           setIsMobileMenuOpen(false);
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        if (
+          isMobileMenuOpen &&
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]') &&
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle theme"]')
+        ) {
+          setIsMobileMenuOpen(false);
         }
       }
     };
@@ -54,40 +77,71 @@ export function UniversalHeader() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    // In a real app, you would also update the class on <html> or <body>
+    // e.g., document.documentElement.classList.toggle('dark');
+    // And persist this preference.
+    console.log('Theme toggled, dark mode is now:', !isDarkMode);
+  };
+  
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
 
-  return (
-    <>
+  if (!isMounted) {
+    return (
       <header className="sticky top-0 z-50 bg-background shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo/Brand */}
-            <Link href="/" className="text-green-500 font-bold text-xl hover:opacity-80 transition-opacity">
-              RooftopRoots
-            </Link>
+            {/* Placeholder for SSR/initial load */}
+            <div className="flex items-center">
+              <div className="h-10 w-10 bg-muted rounded-full animate-pulse"></div>
+            </div>
+            <div className="hidden md:flex items-center space-x-4">
+              <div className="h-6 w-20 bg-muted rounded animate-pulse"></div>
+              <div className="h-6 w-20 bg-muted rounded animate-pulse"></div>
+              <div className="h-6 w-20 bg-muted rounded animate-pulse"></div>
+            </div>
+            <div className="flex items-center">
+               <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-1 items-center">
+  return (
+    <>
+      <header className="sticky top-0 z-50 bg-background text-foreground shadow-md">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Desktop Header */}
+          <div className="hidden md:flex h-20 items-center">
+            <Link href="/" className="flex-shrink-0" aria-label="Sandesh Food Hub Home">
+              <CustomLogoIcon className="h-24 w-24 text-accent" />
+            </Link>
+            
+            <nav className="mx-auto flex items-center space-x-2">
               {navItems.map((item) =>
                 item.dropdown ? (
                   <div key={item.label} className="relative group">
-                    <button
-                      className="px-3 py-2 rounded-md text-sm font-medium text-foreground/80 hover:text-primary hover:bg-primary/10 transition-colors flex items-center"
+                    <Link
+                      href={item.href || '#'}
+                      className="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors flex items-center"
                       aria-haspopup="true"
-                      aria-expanded="false" // This could be dynamic if menu opens on click
+                      aria-expanded="false"
                     >
                       {item.label}
-                      <ChevronDown className="ml-1 h-4 w-4 group-hover:rotate-180 transition-transform" />
-                    </button>
-                    <div className="absolute left-0 mt-1 w-56 rounded-md shadow-lg bg-card text-card-foreground ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0">
+                      <ChevronDown className="ml-1 h-4 w-4 transition-transform group-hover:rotate-180" />
+                    </Link>
+                    <div className="absolute left-0 mt-1 w-56 rounded-md shadow-lg bg-card text-card-foreground ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-all duration-200 ease-in-out pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0 z-20">
                       <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby={item.label}>
                         {item.dropdown.map((subItem) => (
                           <Link
                             key={subItem.label}
                             href={subItem.href || '#'}
-                            className="block px-4 py-2 text-sm text-foreground/80 hover:bg-muted hover:text-primary transition-colors"
+                            className="block px-4 py-2 text-sm hover:bg-muted hover:text-primary transition-colors"
                             role="menuitem"
                           >
                             {subItem.label}
@@ -100,7 +154,7 @@ export function UniversalHeader() {
                   <Link
                     key={item.label}
                     href={item.href || '#'}
-                    className="px-3 py-2 rounded-md text-sm font-medium text-foreground/80 hover:text-primary hover:bg-primary/10 transition-colors"
+                    className="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -108,17 +162,35 @@ export function UniversalHeader() {
               )}
             </nav>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button
-                onClick={toggleMobileMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-foreground/80 hover:text-primary hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors"
-                aria-label="Toggle mobile menu"
-                aria-expanded={isMobileMenuOpen}
-              >
-                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
+            </button>
+          </div>
+
+          {/* Mobile Header */}
+          <div className="md:hidden flex h-16 items-center justify-between">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? <Sun className="h-5 w-5 text-accent" /> : <Moon className="h-5 w-5 text-primary" />}
+            </button>
+            <Link href="/" className="flex-shrink-0" aria-label="Sandesh Food Hub Home">
+               <CustomLogoIcon className="h-20 w-20 text-accent" />
+            </Link>
+            <button
+              onClick={toggleMobileMenu}
+              className="p-2 rounded-md hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+              aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
 
@@ -126,7 +198,7 @@ export function UniversalHeader() {
         <div
           ref={mobileMenuRef}
           className={cn(
-            'md:hidden absolute top-16 left-0 right-0 bg-background shadow-xl transition-all duration-300 ease-in-out transform overflow-y-auto max-h-[calc(100vh-4rem)]',
+            'md:hidden fixed inset-x-0 top-16 bg-background shadow-xl transition-all duration-300 ease-in-out transform overflow-y-auto max-h-[calc(100vh-4rem)] z-40',
             isMobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-4 invisible'
           )}
         >
@@ -134,16 +206,16 @@ export function UniversalHeader() {
             {navItems.map((item) =>
               item.dropdown ? (
                 <details key={item.label} className="group">
-                  <summary className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-foreground/80 hover:bg-muted hover:text-primary cursor-pointer list-none transition-colors">
-                    {item.label}
-                    <ChevronDown className="ml-1 h-5 w-5 group-open:rotate-180 transition-transform" />
+                  <summary className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium hover:bg-muted hover:text-primary cursor-pointer list-none transition-colors">
+                    <Link href={item.href || '#'} onClick={handleLinkClick} className="flex-grow">{item.label}</Link>
+                    <ChevronDown className="ml-1 h-5 w-5 group-open:rotate-180 transition-transform flex-shrink-0" />
                   </summary>
-                  <div className="pl-4 mt-1 space-y-1 transition-all duration-300 ease-in-out max-h-0 group-open:max-h-screen overflow-hidden">
+                  <div className="pl-7 mt-1 space-y-1 transition-all duration-300 ease-in-out max-h-0 group-open:max-h-screen overflow-hidden">
                     {item.dropdown.map((subItem) => (
                       <Link
                         key={subItem.label}
                         href={subItem.href || '#'}
-                        className="block px-3 py-2 rounded-md text-base font-medium text-foreground/70 hover:bg-muted hover:text-primary transition-colors"
+                        className="block px-3 py-2 rounded-md text-base font-medium text-foreground/80 hover:bg-muted hover:text-primary transition-colors"
                         onClick={handleLinkClick}
                       >
                         {subItem.label}
@@ -155,7 +227,7 @@ export function UniversalHeader() {
                 <Link
                   key={item.label}
                   href={item.href || '#'}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-foreground/80 hover:bg-muted hover:text-primary transition-colors"
+                  className="block px-3 py-2 rounded-md text-base font-medium hover:bg-muted hover:text-primary transition-colors"
                   onClick={handleLinkClick}
                 >
                   {item.label}

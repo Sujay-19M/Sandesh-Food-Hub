@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { Navbar } from '@/components/layout/Navbar';
+import { UniversalHeader } from '@/components/layout/UniversalHeader'; // Changed
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -28,18 +28,21 @@ export const metadata: Metadata = {
     description: 'Delicious and fresh pure vegetarian dishes.',
     type: 'website',
     locale: 'en_IN',
-    url: 'https://sandeshfoodhub.example.com', // Replace with actual URL
+    url: 'https://sandeshfoodhub.example.com', 
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: 'https://placehold.co/1200x630.png?text=Sandesh+Food+Hub+Restaurant', // Replace with actual OG image
-        width: 1200,
-        height: 630,
-        alt: 'Sandesh Food Hub Restaurant',
+        url: '/hand-platter-logo.svg', // Assuming this is your main OG image now
+        width: 1200, // Adjust if your SVG has different intrinsic dimensions
+        height: 630, // Adjust
+        alt: 'Sandesh Food Hub Logo',
       },
     ],
   },
-  // Removed specific icon link to allow default favicon.ico
+  icons: {
+    icon: '/hand-platter-logo.svg', // Favicon
+    apple: '/hand-platter-logo.svg', // Apple touch icon
+  },
 };
 
 export default function RootLayout({
@@ -49,9 +52,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow">{children}</main>
+      <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
+        <UniversalHeader /> {/* Changed from Navbar */}
+        <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
+          {children}
+        </main>
         <Footer />
         <Toaster />
       </body>

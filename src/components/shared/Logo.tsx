@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils';
 
 interface LogoProps {
   className?: string;
+  iconClassName?: string; // To allow specific styling for the icon itself
 }
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ className, iconClassName }: LogoProps) {
   return (
     <Link
       href="/"
@@ -19,8 +20,8 @@ export function Logo({ className }: LogoProps) {
       )}
       aria-label="Sandesh Food Hub Home"
     >
-      <CustomLogoIcon className="h-24 w-24 text-accent" />
-      {/* The text "Sandesh Food Hub" has been removed as per user request, assuming the SVG logo includes it. */}
+      <CustomLogoIcon className={cn("h-24 w-24 text-accent", iconClassName)} />
+      {/* Text "Sandesh Food Hub" is removed as the SVG logo should contain it */}
     </Link>
   );
 }
