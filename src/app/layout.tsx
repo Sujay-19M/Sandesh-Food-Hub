@@ -23,10 +23,10 @@ const pacifico = Pacifico({
   weight: '400',
 });
 
-const playfair = Playfair_Display({ // Added Playfair Display
+const playfair = Playfair_Display({ 
   variable: '--font-playfair',
   subsets: ['latin'],
-  weight: ['400', '700'], // Common weights for Playfair
+  weight: ['400', '700'], 
 });
 
 export const metadata: Metadata = {
@@ -41,20 +41,20 @@ export const metadata: Metadata = {
     description: 'Delicious and fresh pure vegetarian dishes.',
     type: 'website',
     locale: 'en_IN',
-    url: 'https://sandeshfoodhub.example.com', // Replace with your actual URL
+    url: 'https://sandeshfoodhub.example.com', 
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: '/custom-logo-icon.svg', // Replace with your actual logo image URL if different
-        width: 1200,
-        height: 630,
+        url: '/favicon.ico', 
+        width: 128, 
+        height: 128, 
         alt: 'Sandesh Food Hub Logo',
       },
     ],
   },
   icons: {
-    icon: '/custom-logo-icon.svg', // Replace with your actual favicon URL
-    apple: '/custom-logo-icon.svg', // Replace with your actual apple touch icon URL
+    icon: '/favicon.ico', 
+    apple: '/favicon.ico', 
   },
 };
 
@@ -67,7 +67,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${firaCode.variable} ${pacifico.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
             <UniversalHeader />
-            <main className="flex-grow">{/* Removed padding-top pt-16 md:pt-20 */}
+            <main className="flex-grow">
               {children}
             </main>
             <Footer />

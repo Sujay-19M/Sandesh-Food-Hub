@@ -3,8 +3,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import Image from 'next/image';
+import { cn } from '@/lib/utils'; // Import cn
 
 export const metadata: Metadata = {
   title: 'Blog | Sandesh Food Hub',
@@ -78,9 +79,12 @@ export default function BlogPage() {
                 <p className="text-sm text-foreground/80">{post.excerpt}</p>
               </CardContent>
               <CardFooter>
-                <Button asChild variant="link" className="text-accent p-0 h-auto">
-                  <Link href={`/blog/${post.slug}`}>Read More &rarr;</Link>
-                </Button>
+                <Link 
+                  href={`/blog/${post.slug}`}
+                  className={cn(buttonVariants({ variant: "link", className: "text-accent p-0 h-auto" }))}
+                >
+                  Read More &rarr;
+                </Link>
               </CardFooter>
             </Card>
           ))}
