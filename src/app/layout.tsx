@@ -5,7 +5,7 @@ import './globals.css';
 import { UniversalHeader } from '@/components/layout/UniversalHeader';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider"; 
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: '/custom-logo-icon.svg', // Updated to reflect the new logo
+        url: '/custom-logo-icon.svg', 
         width: 1200,
         height: 630,
         alt: 'Sandesh Food Hub Logo',
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: '/custom-logo-icon.svg', // Updated to reflect the new logo
-    apple: '/custom-logo-icon.svg', // Updated to reflect the new logo
+    icon: '/custom-logo-icon.svg',
+    apple: '/custom-logo-icon.svg',
   },
 };
 

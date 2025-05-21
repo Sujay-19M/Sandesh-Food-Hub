@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Menu',
-    href: '/menu', 
+    href: '/menu',
     dropdown: [
       { label: 'Starters', href: '/menu#appetizers' },
       { label: 'Main Course', href: '/menu#main-courses' },
@@ -27,9 +27,9 @@ const navItems: NavItem[] = [
       { label: 'Beverages', href: '/menu#beverages' },
     ],
   },
+  { label: 'Contact', href: '/contact' },
   { label: 'Order Now', href: '/order' },
   { label: 'Gallery', href: '/gallery' },
-  { label: 'Contact', href: '/contact' },
 ];
 
 const WHATSAPP_NUMBER = '911234567890'; // Replace with your actual WhatsApp number
@@ -78,23 +78,23 @@ export function UniversalHeader() {
     setIsMobileMenuOpen(false);
   };
 
-  if (!isMounted) { // Skeleton loader for header to prevent hydration mismatch
+  if (!isMounted) { 
     return (
       <header className="sticky top-0 z-50 bg-background shadow-md">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 md:h-20 items-center justify-between">
-            <div className="flex items-center md:hidden"> {/* Mobile theme toggle placeholder */}
+            <div className="flex items-center md:hidden"> 
               <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             </div>
-            <div className="flex items-center"> {/* Logo placeholder */}
-              <CustomLogoIcon className="h-24 w-24 text-accent opacity-0" /> {/* Keep space */}
+            <div className="flex items-center"> 
+              <CustomLogoIcon className="h-24 w-24 text-accent opacity-0" /> 
             </div>
-             <div className="hidden md:flex items-center space-x-2"> {/* Desktop Nav placeholder */}
+             <div className="hidden md:flex items-center space-x-2"> 
               <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
               <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
               <div className="h-6 w-16 bg-muted rounded animate-pulse"></div>
             </div>
-            <div className="flex items-center"> {/* Desktop theme toggle placeholder / Mobile menu icon placeholder */}
+            <div className="flex items-center"> 
                <div className="h-8 w-8 bg-muted rounded-full animate-pulse"></div>
             </div>
           </div>
