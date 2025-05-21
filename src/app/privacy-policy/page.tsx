@@ -1,19 +1,10 @@
 
 'use client'; // Add this directive to use hooks
 
-import type { Metadata } from 'next';
 import { useState, useEffect } from 'react'; // Import hooks
 import { Container } from '@/components/layout/Container';
 import Link from 'next/link';
 
-// Metadata remains a server-side concept, but we can define it like this
-// if we still want to export it, though it's more typical for server components.
-// For a client component, you might manage title via useEffect if needed,
-// but static metadata export like this is often still processed by Next.js.
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Sandesh Food Hub',
-  description: 'Read the Privacy Policy of Sandesh Food Hub to understand how we collect, use, and protect your personal information.',
-};
 
 export default function PrivacyPolicyPage() {
   const [lastUpdatedDate, setLastUpdatedDate] = useState<string>('');
