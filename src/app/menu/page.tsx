@@ -17,7 +17,7 @@ import {
   IceCream2,
   WrapText,
   Vegan, // Using Vegan for Noodles as a generic food icon
-  Hamburger,
+  Beef, // Changed from Burger to Beef to resolve import error
   Pizza,
   Sandwich as SandwichIcon, // Renaming to avoid conflict if any
   GlassWater,
@@ -65,7 +65,7 @@ const categoryIcons: Record<DishCategory, React.ReactElement> = {
   'Chaat': <IceCream2 className="h-8 w-8 text-primary" />, // Changed from IceCream
   'Momo & Roll': <WrapText className="h-8 w-8 text-primary" />,
   'Noodles': <Vegan className="h-8 w-8 text-primary" />, // Using Vegan as a placeholder
-  'Burger': <Hamburger className="h-8 w-8 text-primary" />,
+  'Burger': <Beef className="h-8 w-8 text-primary" />, // Changed from Burger to Beef
   'Pizza': <Pizza className="h-8 w-8 text-primary" />,
   'Sandwich': <SandwichIcon className="h-8 w-8 text-primary" />,
   'Tea & Coffee': <Coffee className="h-8 w-8 text-primary" />,
@@ -73,10 +73,10 @@ const categoryIcons: Record<DishCategory, React.ReactElement> = {
   'Ice Cream': <IceCream className="h-8 w-8 text-primary" />,
   'Shakes': <Milkshake className="h-8 w-8 text-primary" />,
    // Fallback for categories removed in the previous step, can be removed if not needed
-  'Appetizers': <Leaf className="h-8 w-8 text-primary" />,
-  'Main Courses': <UtensilsCrossed className="h-8 w-8 text-primary" />,
-  'Desserts': <CakeSlice className="h-8 w-8 text-primary" />,
-  'Beverages': <Coffee className="h-8 w-8 text-primary" />,
+  'Appetizers': <Leaf className="h-8 w-8 text-primary" />, // Kept for safety, though new categories should cover these
+  'Main Courses': <UtensilsCrossed className="h-8 w-8 text-primary" />, // Kept for safety
+  'Desserts': <CakeSlice className="h-8 w-8 text-primary" />, // Kept for safety
+  'Beverages': <Coffee className="h-8 w-8 text-primary" />, // Kept for safety
 };
 
 export default async function MenuPage() {
