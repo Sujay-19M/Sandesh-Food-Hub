@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'Sandesh Food Hub',
     images: [
       {
-        url: '/hand-platter-logo.svg', 
+        url: '/custom-logo-icon.svg', // Updated to reflect the new logo
         width: 1200,
         height: 630,
         alt: 'Sandesh Food Hub Logo',
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: '/hand-platter-logo.svg',
-    apple: '/hand-platter-logo.svg',
+    icon: '/custom-logo-icon.svg', // Updated to reflect the new logo
+    apple: '/custom-logo-icon.svg', // Updated to reflect the new logo
   },
 };
 
