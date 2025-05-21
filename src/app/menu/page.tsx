@@ -76,7 +76,7 @@ export default async function MenuPage() {
   return (
     <div className="bg-background py-8 md:py-12">
       <Container>
-        <header className="text-center mb-4 md:mb-6">
+        <header className="text-center mb-4 md:mb-6 sticky top-16 md:top-20 z-30 bg-background/90 backdrop-blur-sm -mx-4 px-4 py-3">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-primary">
             Our Delicious Menu
           </h1>
@@ -95,4 +95,3 @@ export default async function MenuPage() {
     </div>
   );
 }
-

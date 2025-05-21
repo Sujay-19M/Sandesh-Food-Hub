@@ -8,8 +8,7 @@ import { MenuListItem } from '@/components/menu/MenuListItem';
 import { Separator } from '@/components/ui/separator';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { MessageCircle, ShoppingCart, Search, XCircle } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { MessageCircle, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MenuClientViewProps {
@@ -29,25 +28,11 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
   const [cartItems, setCartItems] = useState<Record<string, number>>({});
   const [selectedItemForDialog, setSelectedItemForDialog] = useState<MenuItemType | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  const filteredItems = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return initialItems;
-    }
-    const lowercasedQuery = searchQuery.toLowerCase();
-    return initialItems.filter(item =>
-      item.name.toLowerCase().includes(lowercasedQuery) ||
-      (item.description && item.description.toLowerCase().includes(lowercasedQuery)) ||
-      item.ingredients.some(ingredient => ingredient.toLowerCase().includes(lowercasedQuery)) ||
-      item.category.toLowerCase().includes(lowercasedQuery)
-    );
-  }, [initialItems, searchQuery]);
 
   const handleUpdateQuantity = (itemId: string, newQuantity: number) => {
     setCartItems(prev => {
@@ -76,7 +61,7 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
   const totalPrice = useMemo(() => {
     if (!isMounted) return 0; // Avoid hydration mismatch
     return Object.entries(cartItems).reduce((acc, [itemId, quantity]) => {
-      const item = initialItems.find(i => i.id === itemId); // Use initialItems for price lookup
+      const item = initialItems.find(i => i.id === itemId);
       if (item) {
         return acc + (parsePrice(item.price) * quantity);
       }
@@ -107,52 +92,21 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
       items[cat] = [];
     });
 
-    filteredItems.forEach(item => {
+    initialItems.forEach(item => { // Directly use initialItems
       if (items[item.category]) {
         items[item.category].push(item);
       }
     });
     return items;
-  }, [filteredItems, categories]);
+  }, [initialItems, categories]);
   
-  const noItemsFound = filteredItems.length === 0 && searchQuery.trim() !== '';
 
   return (
     <>
-      <div className="mb-6 md:mb-8 sticky top-16 md:top-20 z-30 bg-background/90 backdrop-blur-sm py-3 -mx-4 px-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search menu items..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-10 w-full bg-card border-border focus:ring-accent focus:border-accent text-sm md:text-base"
-          />
-          {searchQuery && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-7 w-7 text-muted-foreground hover:text-primary"
-              onClick={() => setSearchQuery('')}
-            >
-              <XCircle className="h-4 w-4 md:h-5 md:w-5" />
-              <span className="sr-only">Clear search</span>
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {noItemsFound ? (
-        <div className="text-center py-10">
-          <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <p className="text-lg text-foreground/80">No items match your search for "{searchQuery}".</p>
-          <p className="text-sm text-muted-foreground mt-2">Try a different keyword or clear the search.</p>
-        </div>
-      ) : (
-        categories.map((category) => (
+      {/* Search bar removed */}
+      {categories.map((category) => (
           categorizedItems[category] && categorizedItems[category].length > 0 && (
-            <section key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="mb-10 md:mb-12">
+            <section key={category} id={category.toLowerCase().replace(/\s+/g, '-')} className="mb-10 md:mb-12 pt-4 md:pt-6"> {/* Added padding-top here */}
               <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
                 {React.cloneElement(categoryIcons[category], { className: cn(categoryIcons[category].props.className, "h-5 w-5 md:h-6 md:w-6") })}
                 <h2 className="text-xl md:text-2xl font-semibold text-primary">{category}</h2>
@@ -173,7 +127,7 @@ export function MenuClientView({ initialItems, categories, categoryIcons }: Menu
             </section>
           )
         ))
-      )}
+      }
 
       {selectedItemForDialog && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
