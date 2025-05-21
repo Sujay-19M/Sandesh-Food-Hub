@@ -4,11 +4,10 @@
 import type { SVGProps } from 'react';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react';
+import { Menu, X, ChevronDown, MessageCircle, Sun, Moon } from 'lucide-react'; // Sun, Moon can be removed if not used elsewhere after this fix
 import { CustomLogoIcon } from '@/components/shared/CustomLogoIcon';
 import { cn } from '@/lib/utils';
-import { useTheme } from 'next-themes'; // New import
-import { Button } from '@/components/ui/button'; // For theme toggle button styling
+import { Button } from '@/components/ui/button';
 
 interface NavItem {
   label: string;
@@ -39,9 +38,10 @@ export function UniversalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
-  const { resolvedTheme, setTheme } = useTheme();
 
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const closeMobileMenu = (event: MouseEvent) => {
@@ -52,7 +52,7 @@ export function UniversalHeader() {
         if (
           isMobileMenuOpen &&
           !(event.target as HTMLElement).closest('button[aria-label="Toggle mobile menu"]') &&
-          !(event.target as HTMLElement).closest('button[aria-label="Toggle theme"]') // Prevent closing on theme toggle
+          !(event.target as HTMLElement).closest('button[aria-label="Toggle theme"]') // Ensure theme toggle doesn't close it
         ) {
           setIsMobileMenuOpen(false);
         }
@@ -73,30 +73,30 @@ export function UniversalHeader() {
     setIsMobileMenuOpen(false);
   };
 
-  const ThemeToggleButton = () => {
-    if (!isMounted) {
-      return (
-        <Button variant="ghost" size="icon" className="h-9 w-9 md:h-10 md:w-10" disabled>
-          <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme (loading)</span>
-        </Button>
-      );
-    }
+  if (!isMounted) {
+    // Render a skeleton or basic version of the header until mounted
+    // This helps avoid hydration mismatches related to theme preference
     return (
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-9 w-9 md:h-10 md:w-10"
-        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-        aria-label="Toggle theme"
-      >
-        <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span className="sr-only">Toggle theme</span>
-      </Button>
+        <header className="sticky top-0 z-50 bg-background text-foreground shadow-md">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex h-16 md:h-20 items-center justify-between">
+                    <div className="md:flex-shrink-0"> {/* Placeholder for logo area */}
+                        <CustomLogoIcon className="h-24 w-24 text-accent" />
+                    </div>
+                    <div className="hidden md:flex mx-auto items-center space-x-2"> {/* Placeholder for nav */}
+                         <span className="p-2">Home</span>
+                         <span className="p-2">Menu</span>
+                         <span className="p-2">Contact</span>
+                    </div>
+                    <div className="flex items-center"> {/* Placeholder for right side actions */}
+                        <div className="w-9 h-9 md:w-10 md:h-10 bg-muted rounded-full animate-pulse"></div> {/* Skeleton for theme toggle */}
+                        <div className="md:hidden w-9 h-9 ml-2 bg-muted rounded-full animate-pulse"></div> {/* Skeleton for hamburger */}
+                    </div>
+                </div>
+            </div>
+        </header>
     );
-  };
+  }
 
   return (
     <>
@@ -149,12 +149,13 @@ export function UniversalHeader() {
                 )
               )}
             </nav>
-            <ThemeToggleButton />
+            {/* Removed Theme Toggle Button for Desktop */}
           </div>
 
           {/* Mobile Header */}
           <div className="md:hidden flex h-16 items-center justify-between">
-            <ThemeToggleButton />
+             {/* Removed Theme Toggle Button for Mobile Left */}
+            <div className="w-9 md:w-10"></div> {/* Placeholder for spacing if theme toggle was on left */}
             <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
                <CustomLogoIcon className="h-20 w-20 text-accent" />
             </Link>

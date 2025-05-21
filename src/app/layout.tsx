@@ -5,7 +5,6 @@ import './globals.css';
 import { UniversalHeader } from '@/components/layout/UniversalHeader';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from "@/components/theme-provider"; // New import
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -54,19 +53,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="antialiased flex flex-col min-h-screen bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
           <UniversalHeader />
           <main className="flex-grow pt-16 md:pt-20">{/* Added padding-top to account for sticky header height */}
             {children}
           </main>
           <Footer />
           <Toaster />
-        </ThemeProvider>
       </body>
     </html>
   );
