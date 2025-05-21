@@ -16,13 +16,13 @@ import {
   CookingPot,
   IceCream2,
   WrapText,
-  Vegan, // Using Vegan for Noodles as a generic food icon
-  Beef, // Changed from Burger to Beef to resolve import error
+  Vegan, 
+  Beef, 
   Pizza,
-  Sandwich as SandwichIcon, // Renaming to avoid conflict if any
+  Sandwich as SandwichIcon, 
   GlassWater,
   IceCream,
-  Blend // Changed from Blender to Blend
+  Blend 
 } from 'lucide-react';
 import { MenuClientView } from '@/components/menu/MenuClientView';
 
@@ -45,7 +45,6 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
           return { ...item, description: aiResponse.description };
         } catch (error) {
           console.error(`Failed to generate description for ${item.name}:`, error);
-          // Fallback description or leave as is
           return { ...item, description: `A delightful ${item.name.toLowerCase()} made with fresh, pure vegetarian ingredients (no onion, no garlic).` };
         }
       }
@@ -56,40 +55,40 @@ async function getMenuItemsWithDescriptions(): Promise<MenuItemType[]> {
 }
 
 const categoryIcons: Record<DishCategory, React.ReactElement> = {
-  'South Indian': <UtensilsCrossed className="h-8 w-8 text-primary" />,
-  'Starters': <Sparkles className="h-8 w-8 text-primary" />,
-  'Salad & Raita': <Salad className="h-8 w-8 text-primary" />,
-  'Indian Breads': <Wheat className="h-8 w-8 text-primary" />,
-  'Rice & Dal': <CookingPot className="h-8 w-8 text-primary" />,
-  'Indian Gravy': <Soup className="h-8 w-8 text-primary" />,
-  'Chaat': <IceCream2 className="h-8 w-8 text-primary" />, 
-  'Momo & Roll': <WrapText className="h-8 w-8 text-primary" />,
-  'Noodles': <Vegan className="h-8 w-8 text-primary" />, 
-  'Burger': <Beef className="h-8 w-8 text-primary" />, 
-  'Pizza': <Pizza className="h-8 w-8 text-primary" />,
-  'Sandwich': <SandwichIcon className="h-8 w-8 text-primary" />,
-  'Tea & Coffee': <Coffee className="h-8 w-8 text-primary" />,
-  'Lassi': <GlassWater className="h-8 w-8 text-primary" />,
-  'Ice Cream': <IceCream className="h-8 w-8 text-primary" />,
-  'Shakes': <Blend className="h-8 w-8 text-primary" />, // Changed from Blender to Blend
-   // Fallback for categories removed in the previous step, can be removed if not needed
-  'Appetizers': <Leaf className="h-8 w-8 text-primary" />, // Kept for safety, though new categories should cover these
-  'Main Courses': <UtensilsCrossed className="h-8 w-8 text-primary" />, // Kept for safety
-  'Desserts': <CakeSlice className="h-8 w-8 text-primary" />, // Kept for safety
-  'Beverages': <Coffee className="h-8 w-8 text-primary" />, // Kept for safety
+  'South Indian': <UtensilsCrossed className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Starters': <Sparkles className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Salad & Raita': <Salad className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Indian Breads': <Wheat className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Rice & Dal': <CookingPot className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Indian Gravy': <Soup className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Chaat': <IceCream2 className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
+  'Momo & Roll': <WrapText className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Noodles': <Vegan className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
+  'Burger': <Beef className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
+  'Pizza': <Pizza className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Sandwich': <SandwichIcon className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Tea & Coffee': <Coffee className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Lassi': <GlassWater className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Ice Cream': <IceCream className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Shakes': <Blend className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
+  // Fallbacks - can be removed if all categories are explicitly handled
+  'Appetizers': <Leaf className="h-6 w-6 md:h-8 md:w-8 text-primary" />, 
+  'Main Courses': <UtensilsCrossed className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Desserts': <CakeSlice className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
+  'Beverages': <Coffee className="h-6 w-6 md:h-8 md:w-8 text-primary" />,
 };
 
 export default async function MenuPage() {
   const itemsWithDescriptions = await getMenuItemsWithDescriptions();
 
   return (
-    <div className="bg-background py-12">
+    <div className="bg-background py-8 md:py-12">
       <Container>
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl">
+        <header className="text-center mb-8 md:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
             Our Delicious Menu
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/70">
+          <p className="mt-3 md:mt-4 max-w-lg md:max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-foreground/70">
             Explore a variety of pure vegetarian dishes (no onion, no garlic), crafted with passion and the freshest ingredients at Sandesh Food Hub.
           </p>
         </header>

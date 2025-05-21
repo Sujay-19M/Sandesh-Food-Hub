@@ -23,10 +23,11 @@ const navItems: NavItem[] = [
     label: 'Menu',
     href: '/menu',
     dropdown: [
-      { label: 'Starters', href: '/menu#appetizers' },
-      { label: 'Main Course', href: '/menu#main-courses' },
-      { label: 'Desserts', href: '/menu#desserts' },
-      { label: 'Beverages', href: '/menu#beverages' },
+      { label: 'Starters', href: '/menu#starters' }, // Updated to match menuData categories
+      { label: 'South Indian', href: '/menu#south-indian' },
+      { label: 'Main Course (Indian Gravy)', href: '/menu#indian-gravy' },
+      { label: 'Desserts (Ice Cream)', href: '/menu#ice-cream' }, // Example, adjust as needed
+      { label: 'Beverages (Shakes & Lassi)', href: '/menu#shakes' }, // Example
     ],
   },
   { label: 'Contact', href: '/contact' },
@@ -34,7 +35,7 @@ const navItems: NavItem[] = [
   { label: 'Gallery', href: '/gallery' },
 ];
 
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '911234567890'; // Replace with your actual WhatsApp number
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '911234567890';
 const RESTAURANT_PHONE_NUMBER = process.env.NEXT_PUBLIC_RESTAURANT_PHONE || '+919332353778';
 const RESTAURANT_PHONE_TEL_URI = `tel:${RESTAURANT_PHONE_NUMBER.replace(/\s+/g, '')}`;
 
@@ -80,7 +81,7 @@ export function UniversalHeader() {
 
   if (!isMounted) { 
     return (
-        <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur supports-[backdrop-filter]:bg-primary/60 text-primary-foreground shadow-md">
+        <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur supports-[backdrop-filter]:bg-primary/60 text-primary-foreground shadow-md h-16 md:h-20">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 md:h-20 items-center justify-between">
                     <div className="hidden md:block"> 
@@ -88,12 +89,12 @@ export function UniversalHeader() {
                     </div>
                     <div className="md:hidden w-9 h-9 bg-muted rounded-full animate-pulse"></div> {/* Phone Icon Placeholder */}
                     <div className="md:hidden absolute left-1/2 -translate-x-1/2"> {/* Centered Logo Placeholder */}
-                         <div className="h-20 w-20 bg-muted rounded-full animate-pulse"></div>
+                         <div className="h-12 w-12 bg-muted rounded-full animate-pulse"></div> {/* Smaller mobile logo placeholder */}
                     </div>
-                    <div className="hidden md:flex mx-auto items-center space-x-2">
-                         <span className="h-5 w-16 bg-muted rounded animate-pulse"></span>
-                         <span className="h-5 w-16 bg-muted rounded animate-pulse"></span>
-                         <span className="h-5 w-16 bg-muted rounded animate-pulse"></span>
+                    <div className="hidden md:flex mx-auto items-center space-x-1 md:space-x-2">
+                         <span className="h-5 w-12 md:w-16 bg-muted rounded animate-pulse"></span>
+                         <span className="h-5 w-12 md:w-16 bg-muted rounded animate-pulse"></span>
+                         <span className="h-5 w-12 md:w-16 bg-muted rounded animate-pulse"></span>
                     </div>
                     <div className="flex items-center">
                         <div className="hidden md:block h-9 w-24 bg-muted rounded-md animate-pulse"></div> {/* Call Button Placeholder */}
@@ -107,21 +108,21 @@ export function UniversalHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur supports-[backdrop-filter]:bg-primary/60 text-primary-foreground shadow-md">
+      <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur supports-[backdrop-filter]:bg-primary/60 text-primary-foreground shadow-md h-16 md:h-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Desktop Header */}
           <div className="hidden md:flex h-20 items-center">
             <Link href="/" className="flex-shrink-0" aria-label="Sandesh Food Hub Home">
-              <CustomLogoIcon className="h-24 w-24 text-accent" /> {/* Orange Accent Color for Logo */}
+              <CustomLogoIcon className="h-24 w-24 text-accent" />
             </Link>
             
-            <nav className="mx-auto flex items-center space-x-2">
+            <nav className="mx-auto flex items-center space-x-1 md:space-x-2"> {/* Reduced space-x for tighter packing if needed */}
               {navItems.map((item) =>
                 item.dropdown ? (
                   <div key={item.label} className="relative group">
                     <Link
                       href={item.href || '#'}
-                      className="px-3 py-2 rounded-md text-sm font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground transition-colors flex items-center"
+                      className="px-2 py-2 md:px-3 rounded-md text-sm font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground transition-colors flex items-center"
                       aria-haspopup="true"
                       aria-expanded="false"
                     >
@@ -134,7 +135,7 @@ export function UniversalHeader() {
                           <Link
                             key={subItem.label}
                             href={subItem.href || '#'}
-                            className="block px-4 py-2 text-sm text-card-foreground hover:bg-muted hover:text-muted-foreground transition-colors" // Updated hover for dropdown
+                            className="block px-4 py-2 text-sm text-card-foreground hover:bg-muted hover:text-muted-foreground transition-colors"
                             role="menuitem"
                             onClick={handleLinkClick}
                           >
@@ -148,7 +149,7 @@ export function UniversalHeader() {
                   <Link
                     key={item.label}
                     href={item.href || '#'}
-                    className="px-3 py-2 rounded-md text-sm font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground transition-colors"
+                    className="px-2 py-2 md:px-3 rounded-md text-sm font-medium text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground transition-colors"
                     onClick={handleLinkClick}
                   >
                     {item.label}
@@ -159,8 +160,8 @@ export function UniversalHeader() {
             <div className="flex items-center space-x-2">
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button variant="default" className="bg-accent hover:bg-secondary text-accent-foreground hover:text-secondary-foreground"> {/* Orange button, Mint hover */}
-                      <PhoneCall className="mr-2 h-4 w-4" />
+                    <Button variant="default" size="sm" className="bg-accent hover:bg-secondary text-accent-foreground hover:text-secondary-foreground text-xs md:text-sm">
+                      <PhoneCall className="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4" />
                       Call Now
                     </Button>
                   </PopoverTrigger>
@@ -178,17 +179,17 @@ export function UniversalHeader() {
 
           {/* Mobile Header */}
           <div className="md:hidden flex h-16 items-center justify-between">
-             <Button asChild variant="ghost" size="icon" className="p-2 text-primary-foreground hover:bg-primary-foreground/10" aria-label="Call restaurant">
+             <Button asChild variant="ghost" size="icon" className="p-1 text-primary-foreground hover:bg-primary-foreground/10" aria-label="Call restaurant">
                 <a href={RESTAURANT_PHONE_TEL_URI}>
-                  <PhoneCall className="h-6 w-6" />
+                  <PhoneCall className="h-5 w-5" /> {/* Slightly smaller icon */}
                 </a>
             </Button>
             <Link href="/" className="flex-shrink-0 absolute left-1/2 -translate-x-1/2" aria-label="Sandesh Food Hub Home">
-               <CustomLogoIcon className="h-20 w-20 text-accent" /> {/* Orange Accent Color for Logo */}
+               <CustomLogoIcon className="h-16 w-16 text-accent" /> {/* Smaller logo for mobile header */}
             </Link>
             <button
               onClick={toggleMobileMenu}
-              className="p-2 rounded-md text-primary-foreground hover:bg-primary-foreground/10 focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+              className="p-1 rounded-md text-primary-foreground hover:bg-primary-foreground/10 focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
               aria-label="Toggle mobile menu"
               aria-expanded={isMobileMenuOpen}
             >
@@ -209,16 +210,16 @@ export function UniversalHeader() {
             {navItems.map((item) =>
               item.dropdown ? (
                 <details key={item.label} className="group">
-                  <summary className="flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-secondary hover:text-secondary-foreground cursor-pointer list-none transition-colors">
+                  <summary className="flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-secondary hover:text-secondary-foreground cursor-pointer list-none transition-colors">
                     <Link href={item.href || '#'} onClick={(e) => { e.preventDefault(); (e.currentTarget.parentElement as HTMLDetailsElement).open = !(e.currentTarget.parentElement as HTMLDetailsElement).open; }} className="flex-grow">{item.label}</Link>
-                    <ChevronDown className="ml-1 h-5 w-5 group-open:rotate-180 transition-transform flex-shrink-0 text-foreground" />
+                    <ChevronDown className="ml-1 h-4 w-4 group-open:rotate-180 transition-transform flex-shrink-0 text-foreground" />
                   </summary>
                   <div className="pl-7 mt-1 space-y-1 transition-all duration-300 ease-in-out max-h-0 group-open:max-h-screen overflow-hidden">
                     {item.dropdown.map((subItem) => (
                       <Link
                         key={subItem.label}
                         href={subItem.href || '#'}
-                        className="block px-3 py-2 rounded-md text-base font-medium text-foreground/80 hover:bg-secondary hover:text-secondary-foreground transition-colors"
+                        className="block px-3 py-2 rounded-md text-sm font-medium text-foreground/80 hover:bg-secondary hover:text-secondary-foreground transition-colors"
                         onClick={handleLinkClick}
                       >
                         {subItem.label}
@@ -230,7 +231,7 @@ export function UniversalHeader() {
                 <Link
                   key={item.label}
                   href={item.href || '#'}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-secondary hover:text-secondary-foreground transition-colors"
+                  className="block px-3 py-2 rounded-md text-sm font-medium text-foreground hover:bg-secondary hover:text-secondary-foreground transition-colors"
                   onClick={handleLinkClick}
                 >
                   {item.label}
@@ -241,19 +242,19 @@ export function UniversalHeader() {
            <div className="p-4 border-t border-border space-y-3">
               <Button
                   asChild
-                  className="w-full flex items-center justify-center text-base font-medium text-accent-foreground bg-accent hover:bg-secondary hover:text-secondary-foreground transition-colors" // Orange button, Mint hover
+                  className="w-full flex items-center justify-center text-sm font-medium text-accent-foreground bg-accent hover:bg-secondary hover:text-secondary-foreground transition-colors py-2.5" 
                   onClick={() => setIsMobileMenuOpen(false)}
               >
                 <a href={RESTAURANT_PHONE_TEL_URI}>
-                  <PhoneCall className="mr-2 h-5 w-5" /> Call Now
+                  <PhoneCall className="mr-2 h-4 w-4" /> Call Now
                 </a>
               </Button>
               <Button
                   onClick={() => setIsMobileMenuOpen(false)}
                   variant="outline"
-                  className="w-full flex items-center justify-center text-base font-medium border-primary text-primary hover:bg-secondary hover:text-secondary-foreground"
+                  className="w-full flex items-center justify-center text-sm font-medium border-primary text-primary hover:bg-secondary hover:text-secondary-foreground py-2.5"
               >
-                  <X className="mr-2 h-5 w-5" /> Close Menu
+                  <X className="mr-2 h-4 w-4" /> Close Menu
               </Button>
           </div>
         </div>
@@ -267,7 +268,7 @@ export function UniversalHeader() {
         className="fixed bottom-5 right-5 z-50 p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:scale-110 transition-transform duration-200 ease-in-out"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="h-6 w-6" />
+        <MessageCircle className="h-5 w-5 md:h-6 md:w-6" />
       </a>
     </>
   );

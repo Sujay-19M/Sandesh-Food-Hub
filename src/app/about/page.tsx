@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 
 export default function AboutUsPage() {
   return (
-    <Container className="py-12 min-h-[calc(100vh-theme(spacing.16)-theme(spacing.20)-1px)]"> {/* Adjust min-height based on header/footer */}
+    <Container className="py-8 md:py-12 min-h-[calc(100vh-theme(spacing.16)-theme(spacing.20)-1px)]"> 
       <div className="text-center">
-        <h1 className="text-4xl font-extrabold tracking-tight text-primary sm:text-5xl mb-8">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary mb-6 md:mb-8">
           About Sandesh Food Hub
         </h1>
-        <div className="max-w-3xl mx-auto text-lg text-foreground/80 space-y-6">
+        <div className="max-w-2xl md:max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-foreground/80 space-y-4 md:space-y-6">
           <p>
             Welcome to Sandesh Food Hub, where culinary passion meets the art of pure vegetarian cooking. 
             Our journey began with a simple idea: to create a haven for food lovers seeking authentic, 

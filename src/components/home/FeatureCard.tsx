@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -13,9 +14,9 @@ interface FeatureCardProps {
 
 export function FeatureCard({ title, description, icon, imageSrc, imageAlt, dataAiHint }: FeatureCardProps) {
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col bg-card text-card-foreground border-border hover:border-secondary"> {/* Card with mint green hover border */}
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full flex flex-col bg-card text-card-foreground border-border hover:border-secondary">
       {imageSrc && imageAlt && (
-        <div className="relative h-48 w-full">
+        <div className="relative h-40 sm:h-48 w-full">
           <Image 
             src={imageSrc} 
             alt={imageAlt} 
@@ -25,12 +26,12 @@ export function FeatureCard({ title, description, icon, imageSrc, imageAlt, data
           />
         </div>
       )}
-      <CardHeader className="flex flex-row items-center gap-3 pb-2">
-        {icon && <div className="text-primary">{icon}</div>} {/* Icon uses primary green */}
-        <CardTitle className="text-xl font-semibold text-primary">{title}</CardTitle> {/* Title uses primary green */}
+      <CardHeader className="flex flex-row items-center gap-2 md:gap-3 pb-1 md:pb-2 pt-4 md:pt-6 px-4 md:px-6">
+        {icon && <div className="text-primary">{icon}</div>}
+        <CardTitle className="text-lg md:text-xl font-semibold text-primary">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex-grow">
-        <CardDescription className="text-foreground/80">{description}</CardDescription> {/* Description uses dark brown */}
+      <CardContent className="flex-grow px-4 md:px-6 pb-4 md:pb-6 pt-1 md:pt-0">
+        <CardDescription className="text-xs sm:text-sm text-foreground/80">{description}</CardDescription>
       </CardContent>
     </Card>
   );
